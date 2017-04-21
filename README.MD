@@ -1,0 +1,1 @@
+# FINT SSE Adapter Skeleton
