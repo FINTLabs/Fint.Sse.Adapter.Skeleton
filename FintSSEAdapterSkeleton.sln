@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fint-sse-adapter-skeleton-csharp", "fint-sse-adapter-skeleton-csharp\fint-sse-adapter-skeleton-csharp.csproj", "{2596F956-ADB0-48FF-B849-A14052D61EF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FintSSEAdapterSkeleton", "FintSSEAdapterSkeleton\FintSSEAdapterSkeleton.csproj", "{2596F956-ADB0-48FF-B849-A14052D61EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fint-sse-adapter-skeleton-csharp.Test", "fint-sse-adapter-skeleton-csharp.Test\fint-sse-adapter-skeleton-csharp.Test.csproj", "{B74D27C6-5D47-412C-A4EE-BB2AAC94D672}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FintSSEAdapterSkeleton.Test", "FintSSEAdapterSkeleton.Test\FintSSEAdapterSkeleton.Test.csproj", "{B74D27C6-5D47-412C-A4EE-BB2AAC94D672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
