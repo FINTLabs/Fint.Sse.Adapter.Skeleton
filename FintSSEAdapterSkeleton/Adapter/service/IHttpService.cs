@@ -1,9 +1,9 @@
-﻿using FintEventModel.Model;
+﻿﻿using FintEventModel.Model;
 
 namespace Fint.SSE.Adapter.service
 {
     public interface IHttpService
     {
-        void Post(string endpoint, Event evt);
+        void Post(string endpoint, Event<object> evt);
     }
 }

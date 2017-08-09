@@ -29,7 +29,7 @@ namespace Fint.SSE.Adapter.sse
 
         private void onEvent(string data)
         {
-            var evtObj = EventUtil.ToEvent(data);
+            var evtObj = EventUtil.ToEvent<object>(data);
 
             if (evtObj == null)
             {

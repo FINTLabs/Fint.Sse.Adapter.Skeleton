@@ -6,23 +6,38 @@ using System.Collections.Specialized;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Fint.SSE.Adapter.service
 {
     public class HttpService : IHttpService
     {
-        public void Post(string endpoint, Event evt)
+        public void Post(string endpoint, Event<object> evt)
         {
             using (WebClient client = new WebClient())
             {
+                JsonConvert.DefaultSettings = (() =>
+                {
+                    var settings = new JsonSerializerSettings();
+                    settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
+                    settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    return settings;
+                });
+
                 client.Headers.Add(FintHeaders.ORG_ID_HEADER, evt.OrgId);
-                var keysValues = ConvertToKeyValuePair(evt);
+                client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+                //var keysValues = ConvertToKeyValuePair(evt);
+                var json = JsonConvert.SerializeObject(evt);
+
                 // Before having tested this with a proper backend system, 
                 // I believe this is the method that would work best.
                 try
                 {
-                    var response = client.UploadValues(endpoint, keysValues);
-                    Log.Information("Provider POST response {reponse}", Encoding.ASCII.GetString(response));
+                    Log.Information("JSON event: {json}", json);
+                    var response = client.UploadString(endpoint, json);
+                    Log.Information("Provider POST response {reponse}", response);
                 }
                 catch (Exception e)
                 {

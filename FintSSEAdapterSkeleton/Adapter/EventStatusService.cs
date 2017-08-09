@@ -1,4 +1,4 @@
-﻿using Fint.SSE.Adapter.service;
+﻿﻿using Fint.SSE.Adapter.service;
 using Fint.SSE.Customcode;
 using FintEventModel.Model;
 using System;
@@ -16,7 +16,7 @@ namespace Fint.SSE.Adapter
             _configService = configService;
         }
 
-        public Event VerifyEvent(Event evt)
+        public Event<object> VerifyEvent(Event<object> evt)
         {
             if (ActionUtils.IsValidAction(evt.Action))
             {
@@ -26,11 +26,12 @@ namespace Fint.SSE.Adapter
             {
                 evt.Status = Status.PROVIDER_REJECTED;
             }
+            evt.Data.Clear();
             postStatus(evt);
             return evt;
         }
 
-        private void postStatus(Event evt)
+        private void postStatus(Event<object> evt)
         {
             _httpService.Post(_configService.StatusEndpoint, evt);
         }
