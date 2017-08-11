@@ -1,13 +1,13 @@
-﻿using EventSource4Net;
-using Fint.SSE.Adapter.service;
-using Fint.SSE.Customcode.Service;
-using FintEventModel.Model;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using EventSource4Net;
+using Fint.SSE.Adapter.Service;
+using Fint.SSE.Customcode.Service;
+using Fint.Event.Model;
+using Serilog;
 
-namespace Fint.SSE.Adapter.sse
+namespace Fint.SSE.Adapter.SSE
 {
     public class FintEventListener
     {

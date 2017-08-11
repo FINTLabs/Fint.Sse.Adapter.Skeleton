@@ -1,7 +1,8 @@
 ﻿using System;
 using Fint.SSE.Adapter;
-using FintEventModel.Model;
-using Fint.SSE.Adapter.service;
+using Fint.SSE.Adapter.Event;
+using Fint.SSE.Adapter.Service;
+using Fint.Event.Model;
 
 namespace Fint.SSE.Customcode.Service
 {
@@ -28,13 +29,13 @@ namespace Fint.SSE.Customcode.Service
 
         public void HandleEvent(Event<object> evtObj)
         {
-            
+
             //if (evtObj != null
             //    && _statusService.VerifyEvent(evtObj).Status == Status.PROVIDER_ACCEPTED)
             //{
-                //if (ActionUtils.IsValidAction(evtObj.Action))
-                //{
-                    Event<object> responseEvent = null;
+            //if (ActionUtils.IsValidAction(evtObj.Action))
+            //{
+            Event<object> responseEvent = null;
                     var action = (Action) Enum.Parse(typeof(Action), evtObj.Action, ignoreCase: true);
 
                     if (action == Action.HEALTH)

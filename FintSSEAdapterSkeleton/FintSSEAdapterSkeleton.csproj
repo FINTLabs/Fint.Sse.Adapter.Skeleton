@@ -35,6 +35,9 @@
     <Reference Include="EventSource4Net, Version=0.4.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\fint-eventsource.0.4.0.1\lib\net45\EventSource4Net.dll</HintPath>
     </Reference>
+    <Reference Include="FintEventModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FINT.Event.Model.1.0.3\lib\portable50\FintEventModel.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
     </Reference>
@@ -119,19 +122,16 @@
     <Reference Include="System.Net.Http">
       <HintPath>..\packages\System.Net.Http.4.1.0\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
-    <Reference Include="FintEventModel">
-      <HintPath>..\packages\FINT.Event.Model.1.0.2\lib\portable50\FintEventModel.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\EventStatusService.cs" />
-    <Compile Include="Adapter\IEventStatusService.cs" />
-    <Compile Include="Adapter\service\ConfigService.cs" />
-    <Compile Include="Adapter\service\HttpService.cs" />
-    <Compile Include="Adapter\service\IConfigService.cs" />
-    <Compile Include="Adapter\service\IHttpService.cs" />
-    <Compile Include="Adapter\sse\FintEventListener.cs" />
-    <Compile Include="Adapter\sse\FintHeaders.cs" />
+    <Compile Include="Adapter\Event\EventStatusService.cs" />
+    <Compile Include="Adapter\Event\IEventStatusService.cs" />
+    <Compile Include="Adapter\Service\ConfigService.cs" />
+    <Compile Include="Adapter\Service\HttpService.cs" />
+    <Compile Include="Adapter\Service\IConfigService.cs" />
+    <Compile Include="Adapter\Service\IHttpService.cs" />
+    <Compile Include="Adapter\SSE\FintEventListener.cs" />
+    <Compile Include="Adapter\SSE\FintHeaders.cs" />
     <Compile Include="Customcode\Action.cs" />
     <Compile Include="Customcode\Service\EventHandlerService.cs" />
     <Compile Include="Customcode\Service\IEventHandlerService.cs" />
@@ -144,5 +144,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

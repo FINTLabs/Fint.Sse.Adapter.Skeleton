@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace Fint.SSE.Adapter.sse
+﻿namespace Fint.SSE.Adapter.SSE
 {
     public class FintHeaders
     {
-        public const String ORG_ID_HEADER = "x-org-id";
-        public const String CLIENT_HEADER = "x-client";
+        public const string ORG_ID_HEADER = "x-org-id";
+        public const string CLIENT_HEADER = "x-client";
     }
 }

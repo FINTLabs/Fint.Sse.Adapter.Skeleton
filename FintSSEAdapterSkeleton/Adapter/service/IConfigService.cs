@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Fint.SSE.Adapter.service
+namespace Fint.SSE.Adapter.Service
 {
     public interface IConfigService
     {

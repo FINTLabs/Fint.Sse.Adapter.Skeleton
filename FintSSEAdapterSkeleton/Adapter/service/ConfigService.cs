@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 
-namespace Fint.SSE.Adapter.service
+namespace Fint.SSE.Adapter.Service
 {
     public class ConfigService : IConfigService
     {
