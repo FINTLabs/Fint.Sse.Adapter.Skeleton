@@ -1,5 +1,4 @@
-﻿using Fint.SSE.Adapter;
-using Fint.SSE.Adapter.Event;
+﻿using Fint.SSE.Adapter.Event;
 using Fint.SSE.Adapter.Service;
 using Fint.Event.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

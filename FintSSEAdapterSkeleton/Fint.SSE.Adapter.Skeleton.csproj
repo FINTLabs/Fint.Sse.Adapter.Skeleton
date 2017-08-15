@@ -35,8 +35,14 @@
     <Reference Include="EventSource4Net, Version=0.4.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\fint-eventsource.0.4.0.1\lib\net45\EventSource4Net.dll</HintPath>
     </Reference>
-    <Reference Include="FintEventModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FINT.Event.Model.1.0.3\lib\portable50\FintEventModel.dll</HintPath>
+    <Reference Include="Fint.Event.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FINT.Event.Model.1.0.4\lib\netstandard2.0\Fint.Event.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Fint.Pwfa.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FINT.Pwfa.Model.1.0.0\lib\netstandard2.0\Fint.Pwfa.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Fint.Relation.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FINT.Relation.Model.1.0.0\lib\netstandard2.0\Fint.Relation.Model.dll</HintPath>
     </Reference>
     <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
@@ -50,6 +56,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -132,7 +139,7 @@
     <Compile Include="Adapter\Service\IHttpService.cs" />
     <Compile Include="Adapter\SSE\FintEventListener.cs" />
     <Compile Include="Adapter\SSE\FintHeaders.cs" />
-    <Compile Include="Customcode\Action.cs" />
+    <Compile Include="Customcode\ActionUtils.cs" />
     <Compile Include="Customcode\Service\EventHandlerService.cs" />
     <Compile Include="Customcode\Service\IEventHandlerService.cs" />
     <Compile Include="Program.cs" />
@@ -144,6 +151,5 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

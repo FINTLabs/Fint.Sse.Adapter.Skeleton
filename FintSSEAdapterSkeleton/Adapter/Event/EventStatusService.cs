@@ -26,7 +26,7 @@ namespace Fint.SSE.Adapter.Event
                 serverSideEvent.Status = Status.PROVIDER_REJECTED;
             }
 
-            serverSideEvent.Data.Clear();
+            serverSideEvent.Data?.Clear();
 
             PostStatus(serverSideEvent);
 

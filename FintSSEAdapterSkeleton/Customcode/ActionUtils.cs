@@ -1,17 +1,15 @@
-﻿namespace Fint.SSE.Customcode
-{
-    public enum Action
-    {
-        HEALTH
-    }
+﻿using System;
+using Fint.Pwfa.Model;
 
+namespace Fint.SSE.Customcode
+{
     public class ActionUtils
     {
         public static bool IsValidAction(string eventAction)
         {
-            if(System.Enum.TryParse(eventAction, true, out Action action))
+            if(Enum.TryParse(eventAction, true, out PwfaActions action))
             {
-                if (System.Enum.IsDefined(typeof(Action), action))
+                if (Enum.IsDefined(typeof(PwfaActions), action))
                 {
                     return true;
                 }

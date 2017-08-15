@@ -4,6 +4,6 @@ namespace Fint.SSE.Customcode.Service
 {
     public interface IEventHandlerService
     {
-        void HandleEvent(Event<object> evtObj);
+        void HandleEvent(Event<object> serverSideEvent);
     }
 }
