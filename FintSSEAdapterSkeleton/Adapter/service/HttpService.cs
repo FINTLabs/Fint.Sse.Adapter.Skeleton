@@ -39,9 +39,10 @@ namespace Fint.SSE.Adapter.Service
 
                 try
                 {
+                    Log.Information("JSON endpoint: {endpoint}", endpoint);
                     Log.Information("JSON event: {json}", json);
                     var response = await client.PostAsync(endpoint, content);
-                    Log.Information("Provider POST response {reponse}", response.Content);
+                    Log.Information("Provider POST response {reponse}", response.Content.ReadAsStringAsync().Result);
                 }
                 catch (Exception e)
                 {

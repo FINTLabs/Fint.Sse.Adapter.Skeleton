@@ -128,13 +128,13 @@ namespace Fint.SSE.Customcode.Service
 
             var relation = new RelationBuilder()
                 .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("Owner") //TODO
+                .ForType("no.fint.pwfa.model.Owner") //TODO
                 .Value($"{dog?.Id}0")
                 .Build();
 
             var resource = FintResource<Dog>
                 .With(dog)
-                .AddRelations(relation);
+                .AddRelasjoner(relation);
 
             serverSideEvent.Data.Add(resource);
 
@@ -146,13 +146,13 @@ namespace Fint.SSE.Customcode.Service
 
             var relation = new RelationBuilder()
                 .With(Owner.Relasjonsnavn.DOG)
-                .ForType("Dog") //TODO
-                .Value($"{owner?.Id}")
+                .ForType("no.fint.pwfa.model.Dog") //TODO
+                .Value($"{owner?.Id.Substring(0, 1)}")
                 .Build();
 
             var resource = FintResource<Owner>
                 .With(owner)
-                .AddRelations(relation);
+                .AddRelasjoner(relation);
 
             serverSideEvent.Data.Add(resource);
 
@@ -162,20 +162,20 @@ namespace Fint.SSE.Customcode.Service
         {
             var relationOwner1 = new RelationBuilder()
                 .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("Owner") //TODO
+                .ForType("no.fint.pwfa.model.Owner") //TODO
                 .Value("10")
                 .Build();
 
             var relationOwner2 = new RelationBuilder()
                 .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("Owner") //TODO
+                .ForType("no.fint.pwfa.model.Owner") //TODO
                 .Value("20")
                 .Build();
 
             var dogs = _dogs.ToList();
 
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelations(relationOwner1));
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelations(relationOwner2));
+            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
+            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
 
         }
 
@@ -183,39 +183,21 @@ namespace Fint.SSE.Customcode.Service
         {
             var relationDog1 = new RelationBuilder()
                 .With(Owner.Relasjonsnavn.DOG)
-                .ForType("Dog") //TODO
+                .ForType("no.fint.pwfa.model.Dog") //TODO
                 .Value("1")
                 .Build();
 
             var relationDog2 = new RelationBuilder()
                 .With(Owner.Relasjonsnavn.DOG)
-                .ForType("Dog") //TODO
+                .ForType("no.fint.pwfa.model.Dog") //TODO
                 .Value("2")
                 .Build();
 
             var owners = _owners.ToList();
 
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelations(relationDog1));
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelations(relationDog2));
+            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
+            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));
 
-        }
-
-        private Event<object> onHealthCheck(Event<object> evtObj)
-        {
-            if (evtObj.Data == null)
-            {
-                evtObj.Data = new List<object>();
-            }
-
-            if (IsHealthy())
-            {
-                evtObj.Data.Add("I'm fine thanks! How are you?");
-            }
-            else
-            {
-                evtObj.Data.Add("Oh, I'm feeling bad! How are you?");
-            }
-            return evtObj;
         }
 
         private bool IsHealthy()
