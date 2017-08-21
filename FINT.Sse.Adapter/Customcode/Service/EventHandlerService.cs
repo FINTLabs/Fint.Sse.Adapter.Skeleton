@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Options;
 using Fint.SSE.Adapter.Event;
 using Fint.SSE.Adapter.Service;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
 using Fint.Relation.Model;
 using Fint.Pwfa.Model;
-using Microsoft.Extensions.Options;
 
 namespace Fint.SSE.Customcode.Service
 {
@@ -15,14 +15,14 @@ namespace Fint.SSE.Customcode.Service
     {
         private IEventStatusService _statusService;
         private IHttpService _httpService;
-        private ConfigurationOptions _configurationOptions;
+        private AppSettings _configurationOptions;
         private IEnumerable<Owner> _owners;
         private IEnumerable<Dog> _dogs;
 
         public EventHandlerService(
             IEventStatusService statusService,
             IHttpService httpService,
-            IOptions<ConfigurationOptions> configurationOptions)
+            IOptions<AppSettings> configurationOptions)
         {
             _statusService = statusService;
             _httpService = httpService;
@@ -30,15 +30,6 @@ namespace Fint.SSE.Customcode.Service
 
             SetupPwfaData();
         }
-
-        //public EventHandlerService()
-        //{
-        //    _httpService = new HttpService();
-        //    _configurationOptions = new ConfigurationOptions();
-        //    _statusService = new EventStatusService(_httpService, _configurationOptions);
-
-        //    SetupPwfaData();
-        //}
 
         private void SetupPwfaData()
         {

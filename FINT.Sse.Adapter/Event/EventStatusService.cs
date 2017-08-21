@@ -8,9 +8,9 @@ namespace Fint.SSE.Adapter.Event
     public class EventStatusService : IEventStatusService
     {
         private readonly IHttpService _httpService;
-        private readonly ConfigurationOptions _configService;
+        private readonly AppSettings _configService;
 
-        public EventStatusService(IHttpService httpService, IOptions<ConfigurationOptions>  configService)
+        public EventStatusService(IHttpService httpService, IOptions<AppSettings>  configService)
         {
             _httpService = httpService;
             _configService = configService.Value;

@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using EventSource4Net;
 using Fint.SSE.Adapter.Service;
 using Fint.SSE.Customcode.Service;
 using Fint.Event.Model;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Fint.SSE.Adapter.SSE
 {
     public class FintEventListener : IFintEventListener
     {
         private readonly IEventHandlerService _eventHandlerService;
-        private readonly ConfigurationOptions _configurationOptions;
+        private readonly AppSettings _configurationOptions;
         private readonly ILogger<FintEventListener> _logger;
         private string _orgId;
 
         public FintEventListener(
             IEventHandlerService handlerService,
-            IOptions<ConfigurationOptions> configurationOptions,
+            IOptions<AppSettings> configurationOptions,
             ILogger<FintEventListener> logger)
         {
             _eventHandlerService = handlerService;
@@ -45,7 +45,7 @@ namespace Fint.SSE.Adapter.SSE
 
             eventSource.StateChanged += new EventHandler<StateChangedEventArgs>((o, e) =>
             {
-                _logger.LogDebug("{orgId}: SSE state change {@state}", _orgId, e.State);
+                _logger.LogInformation("{orgId}: SSE state change {@state}", _orgId, e.State);
             });
 
             eventSource.EventReceived += new EventHandler<ServerSentEventReceivedEventArgs>((o, e) =>
@@ -74,12 +74,12 @@ namespace Fint.SSE.Adapter.SSE
             {
                 if (serverSideEvent.OrgId == _orgId)
                 {
-                    _logger.LogDebug("{orgId}: Event received {@Event}", _orgId, data);
+                    _logger.LogInformation("{orgId}: Event received {@Event}", _orgId, data);
                     _eventHandlerService.HandleEvent(serverSideEvent);
                 }
                 else
                 {
-                    //_logger.LogDebug("This is not EventListener for {org}", _orgId);
+                    _logger.LogInformation("This is not EventListener for {org}", _orgId);
                 }
             }
         }
