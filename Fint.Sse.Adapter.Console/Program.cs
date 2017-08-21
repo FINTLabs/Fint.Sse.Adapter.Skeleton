@@ -1,13 +1,14 @@
 ﻿using System.IO;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Fint.SSE.Adapter.Event;
-using Fint.SSE.Adapter.Service;
-using Fint.SSE.Adapter.SSE;
-using Fint.SSE.Customcode.Service;
+using Fint.Sse.Adapter.Models;
+using Fint.Sse.Adapter.Services;
+using Fint.SSE.Adapter.EventListeners;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using Serilog;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -30,10 +31,11 @@ namespace Fint.Sse.Adapter.Console
         private static void ConfigureServices(IServiceCollection serviceCollection)
         {
             // add logging
-            serviceCollection.AddSingleton(new LoggerFactory()
-                .AddConsole()
-                .AddDebug());
-            serviceCollection.AddLogging();
+            serviceCollection.AddLogging(loggingBuilder => loggingBuilder
+                //.AddConsole()
+                .AddDebug()
+                .AddSerilog(dispose: true)
+            );
 
             // build configuration
             var configuration = new ConfigurationBuilder()
@@ -43,6 +45,9 @@ namespace Fint.Sse.Adapter.Console
 
             serviceCollection.AddOptions();
             serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
+
+            ConfigureJson();
+            ConfigureLogging(configuration);
             ConfigureConsole(configuration);
 
             // add services
@@ -53,6 +58,28 @@ namespace Fint.Sse.Adapter.Console
 
             // add app
             serviceCollection.AddTransient<Application>();
+        }
+
+        private static void ConfigureJson()
+        {
+            JsonConvert.DefaultSettings = (() =>
+            {
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
+                settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                return settings;
+            });
+        }
+
+        private static void ConfigureLogging(IConfigurationRoot configuration)
+        {
+            string logLocation = configuration.GetSection("Configuration:LogLocation").Value;
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.LiterateConsole()
+                .WriteTo.RollingFile(logLocation + "\\adapter-{Date}.txt",
+                    retainedFileCountLimit: 31)
+                .CreateLogger();
         }
 
         private static void ConfigureConsole(IConfigurationRoot configuration)

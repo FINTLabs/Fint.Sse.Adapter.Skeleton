@@ -4,11 +4,11 @@ using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using EventSource4Net;
-using Fint.SSE.Adapter.Service;
-using Fint.SSE.Customcode.Service;
 using Fint.Event.Model;
+using Fint.Sse.Adapter.Models;
+using Fint.Sse.Adapter.Services;
 
-namespace Fint.SSE.Adapter.SSE
+namespace Fint.SSE.Adapter.EventListeners
 {
     public class FintEventListener : IFintEventListener
     {

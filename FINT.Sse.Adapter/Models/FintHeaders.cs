@@ -1,4 +1,4 @@
-﻿namespace Fint.SSE.Adapter.SSE
+﻿namespace Fint.Sse.Adapter.Models
 {
     public class FintHeaders
     {

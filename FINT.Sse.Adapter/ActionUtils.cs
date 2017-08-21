@@ -1,7 +1,7 @@
 ﻿using System;
 using Fint.Pwfa.Model;
 
-namespace Fint.SSE.Customcode
+namespace Fint.Sse.Adapter
 {
     public class ActionUtils
     {

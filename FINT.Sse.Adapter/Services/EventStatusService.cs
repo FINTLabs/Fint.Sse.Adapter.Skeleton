@@ -1,9 +1,8 @@
-﻿using Fint.SSE.Adapter.Service;
-using Fint.SSE.Customcode;
-using Fint.Event.Model;
+﻿using Fint.Event.Model;
 using Microsoft.Extensions.Options;
+using Fint.Sse.Adapter.Models;
 
-namespace Fint.SSE.Adapter.Event
+namespace Fint.Sse.Adapter.Services
 {
     public class EventStatusService : IEventStatusService
     {

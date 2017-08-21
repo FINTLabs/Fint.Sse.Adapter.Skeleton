@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using EventSource4Net;
-using Fint.SSE.Adapter.Service;
-using Fint.SSE.Adapter.SSE;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using EventSource4Net;
+using Fint.Sse.Adapter.Models;
+using Fint.SSE.Adapter.EventListeners;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -12,47 +13,55 @@ namespace Fint.Sse.Adapter.Console
     {
         private readonly IFintEventListener _fintEventListener;
         private readonly ILogger<Application> _logger;
-        private readonly AppSettings _configurationOptions;
+        private readonly AppSettings _appSettings;
+
         public Application(
             IFintEventListener fintEventListener, 
-            IOptions<AppSettings> configurationOptions,
+            IOptions<AppSettings> appSettings,
             ILogger<Application> logger)
         {
             _fintEventListener = fintEventListener;
             _logger = logger;
-            _configurationOptions = configurationOptions.Value;
-            //IConfigurationOptions configService
-            //_configurationOptions = configService;
-
-            //Log.Logger = new LoggerConfiguration()
-            //    .MinimumLevel.Debug()
-            //    .WriteTo.LiterateConsole()
-            //    .WriteTo.RollingFile(_configurationOptions.LogLocation + "\\adapter-{Date}.txt",
-            //                            retainedFileCountLimit: 31)
-            //    .CreateLogger();
+            _appSettings = appSettings.Value;
         }
 
         public void Run()
         {
             var eventSources = new Dictionary<string, EventSource>();
 
-            foreach (var org in _configurationOptions.Organizations.Split(","))
-            {
-                _logger.LogInformation($"Adding listener for {org}.");
-                eventSources.Add(org, _fintEventListener.Listen(org));
-            }
+            RegisterEventSourceListeners(eventSources);
 
             ConsoleKey key;
             while ((key = System.Console.ReadKey().Key) != ConsoleKey.X)
             {
-                if (key == ConsoleKey.C)
+                switch (key)
                 {
-                    foreach (var item in eventSources)
-                    {
-                        item.Value.CancellationToken.Cancel();
-                        _logger.LogInformation($"Eventsource for {item.Key} is cancelled.");
-                    }
+                    case ConsoleKey.C:
+                        CancelEventSourceListeners(eventSources);
+                        break;
+                    case ConsoleKey.R:
+                        RegisterEventSourceListeners(eventSources);
+                        break;
                 }
+            }
+        }
+
+        private void CancelEventSourceListeners(Dictionary<string, EventSource> eventSources)
+        {
+            foreach (var item in eventSources.ToList())
+            {
+                item.Value.CancellationToken.Cancel();
+                eventSources.Remove(item.Key);
+                _logger.LogInformation($"Eventsource for {item.Key} is cancelled.");
+            }
+        }
+
+        private void RegisterEventSourceListeners(Dictionary<string, EventSource> eventSources)
+        {
+            foreach (var org in _appSettings.Organizations.Split(","))
+            {
+                _logger.LogInformation($"Adding listener for {org}.");
+                eventSources.Add(org, _fintEventListener.Listen(org));
             }
         }
     }

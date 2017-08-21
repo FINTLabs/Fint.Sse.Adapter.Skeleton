@@ -1,6 +1,6 @@
 ﻿using Fint.Event.Model;
 
-namespace Fint.SSE.Adapter.Event
+namespace Fint.Sse.Adapter.Services
 {
     public interface IEventStatusService
     {

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
-using Fint.SSE.Adapter.Event;
-using Fint.SSE.Adapter.Service;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
-using Fint.Relation.Model;
 using Fint.Pwfa.Model;
+using Fint.Relation.Model;
+using Fint.Sse.Adapter.Models;
 
-namespace Fint.SSE.Customcode.Service
+namespace Fint.Sse.Adapter.Services
 {
     public class EventHandlerService : IEventHandlerService
     {
@@ -116,7 +115,7 @@ namespace Fint.SSE.Customcode.Service
 
         private void GetDog(Event<object> serverSideEvent)
         {
-            var dog = _dogs.FirstOrDefault(d => d.Id.Equals(serverSideEvent.Query));
+            var dog = Enumerable.FirstOrDefault<Dog>(_dogs, d => d.Id.Equals(serverSideEvent.Query));
 
             var relation = new RelationBuilder()
                 .With(Dog.Relasjonsnavn.OWNER)
@@ -134,7 +133,7 @@ namespace Fint.SSE.Customcode.Service
 
         private void GetOwner(Event<object> serverSideEvent)
         {
-            var owner = _owners.FirstOrDefault(o => o.Id.Equals(serverSideEvent.Query));
+            var owner = Enumerable.FirstOrDefault<Owner>(_owners, o => o.Id.Equals(serverSideEvent.Query));
 
             var relation = new RelationBuilder()
                 .With(Owner.Relasjonsnavn.DOG)
@@ -164,7 +163,7 @@ namespace Fint.SSE.Customcode.Service
                 .Value("20")
                 .Build();
 
-            var dogs = _dogs.ToList();
+            var dogs = Enumerable.ToList<Dog>(_dogs);
 
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
@@ -185,7 +184,7 @@ namespace Fint.SSE.Customcode.Service
                 .Value("2")
                 .Build();
 
-            var owners = _owners.ToList();
+            var owners = Enumerable.ToList<Owner>(_owners);
 
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));

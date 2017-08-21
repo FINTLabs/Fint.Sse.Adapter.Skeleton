@@ -1,6 +1,6 @@
 ﻿using EventSource4Net;
 
-namespace Fint.SSE.Adapter.SSE
+namespace Fint.SSE.Adapter.EventListeners
 {
     public interface IFintEventListener
     {

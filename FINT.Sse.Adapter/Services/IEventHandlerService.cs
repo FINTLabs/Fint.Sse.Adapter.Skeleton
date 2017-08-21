@@ -1,6 +1,6 @@
 ﻿using Fint.Event.Model;
 
-namespace Fint.SSE.Customcode.Service
+namespace Fint.Sse.Adapter.Services
 {
     public interface IEventHandlerService
     {

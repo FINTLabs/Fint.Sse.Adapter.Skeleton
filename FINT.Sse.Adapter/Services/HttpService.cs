@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Fint.SSE.Adapter.SSE;
 using Fint.Event.Model;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
+using Fint.Sse.Adapter.Models;
 
-namespace Fint.SSE.Adapter.Service
+namespace Fint.Sse.Adapter.Services
 {
     public class HttpService : IHttpService
     {
@@ -23,14 +21,14 @@ namespace Fint.SSE.Adapter.Service
         {
             using (HttpClient client = new HttpClient())
             {
-                //TODO: Move this to a formatter in Startup.cs
-                JsonConvert.DefaultSettings = (() =>
-                {
-                    var settings = new JsonSerializerSettings();
-                    settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
-                    settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    return settings;
-                });
+                ////DONE: Moved this to a formatter in Program.cs
+                //JsonConvert.DefaultSettings = (() =>
+                //{
+                //    var settings = new JsonSerializerSettings();
+                //    settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
+                //    settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                //    return settings;
+                //});
 
                 var contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
@@ -43,14 +41,14 @@ namespace Fint.SSE.Adapter.Service
 
                 try
                 {
-                    _logger.LogInformation("JSON endpoint: {endpoint}", endpoint);
-                    _logger.LogInformation("JSON event: {json}", json);
+                    LoggerExtensions.LogInformation(_logger, "JSON endpoint: {endpoint}", endpoint);
+                    LoggerExtensions.LogInformation(_logger, "JSON event: {json}", json);
                     var response = await client.PostAsync(endpoint, content);
-                    _logger.LogInformation("Provider POST response {reponse}", response.Content.ReadAsStringAsync().Result);
+                    LoggerExtensions.LogInformation(_logger, "Provider POST response {reponse}", response.Content.ReadAsStringAsync().Result);
                 }
                 catch (Exception e)
                 {
-                    _logger.LogWarning("Could not POST {event} to {endpoint}. Error: {error}", serverSideEvent, endpoint, e.Message);
+                    LoggerExtensions.LogWarning(_logger, "Could not POST {event} to {endpoint}. Error: {error}", serverSideEvent, endpoint, e.Message);
                 }
             }
             
