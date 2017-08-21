@@ -14,18 +14,18 @@ namespace Fint.Sse.Adapter.Services
     {
         private IEventStatusService _statusService;
         private IHttpService _httpService;
-        private AppSettings _configurationOptions;
+        private AppSettings _appSettings;
         private IEnumerable<Owner> _owners;
         private IEnumerable<Dog> _dogs;
 
         public EventHandlerService(
             IEventStatusService statusService,
             IHttpService httpService,
-            IOptions<AppSettings> configurationOptions)
+            IOptions<AppSettings> appSettings)
         {
             _statusService = statusService;
             _httpService = httpService;
-            _configurationOptions = configurationOptions.Value;
+            _appSettings = appSettings.Value;
 
             SetupPwfaData();
         }
@@ -89,7 +89,7 @@ namespace Fint.Sse.Adapter.Services
                     if (responseEvent != null)
                     {
                         responseEvent.Status = Status.PROVIDER_RESPONSE;
-                        _httpService.Post(_configurationOptions.ResponseEndpoint, responseEvent);
+                        _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
                     }
                 }
             }
@@ -110,7 +110,7 @@ namespace Fint.Sse.Adapter.Services
                 healthCheckEvent.Message = "The adapter is unable to communicate with the application.";
             }
 
-            _httpService.Post(_configurationOptions.ResponseEndpoint, healthCheckEvent);
+            _httpService.Post(_appSettings.ResponseEndpoint, healthCheckEvent);
         }
 
         private void GetDog(Event<object> serverSideEvent)

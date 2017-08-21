@@ -9,6 +9,11 @@ using Fint.SSE.Adapter.EventListeners;
 
 namespace Fint.Sse.Adapter.Console
 {
+    public interface IApplication
+    {
+        void Run();
+    }
+
     public class Application : IApplication
     {
         private readonly IFintEventListener _fintEventListener;

@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("fint-sse-adapter-skeleton-csharp.Test")]
+[assembly: AssemblyTitle("Fint.Sse.Adapter.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("fint-sse-adapter-skeleton-csharp.Test")]
+[assembly: AssemblyProduct("Fint.Sse.Adapter.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -7,17 +7,21 @@ namespace Fint.Sse.Adapter.Services
     public class EventStatusService : IEventStatusService
     {
         private readonly IHttpService _httpService;
-        private readonly AppSettings _configService;
+        private readonly AppSettings _appSettings;
 
-        public EventStatusService(IHttpService httpService, IOptions<AppSettings>  configService)
+        public EventStatusService(IHttpService httpService, IOptions<AppSettings> appSettings)
         {
             _httpService = httpService;
-            _configService = configService.Value;
+            _appSettings = appSettings.Value;
         }
 
         public Event<object> VerifyEvent(Event<object> serverSideEvent)
         {
-            if (ActionUtils.IsValidAction(serverSideEvent.Action))
+            if (ActionUtils.IsValidStatusAction(serverSideEvent.Action))
+            {
+                serverSideEvent.Status = Status.PROVIDER_ACCEPTED;
+            }
+            else if (ActionUtils.IsValidPwfaAction(serverSideEvent.Action))
             {
                 serverSideEvent.Status = Status.PROVIDER_ACCEPTED;
             }
@@ -35,7 +39,7 @@ namespace Fint.Sse.Adapter.Services
 
         private void PostStatus(Event<object> evt)
         {
-            _httpService.Post(_configService.StatusEndpoint, evt);
+            _httpService.Post(_appSettings.StatusEndpoint, evt);
         }
     }
 }

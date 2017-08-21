@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.3
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fint.SSE.Adapter.Skeleton", "FintSSEAdapterSkeleton\Fint.SSE.Adapter.Skeleton.csproj", "{2596F956-ADB0-48FF-B849-A14052D61EF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FintSSEAdapterSkeleton.Test", "FintSSEAdapterSkeleton.Test\FintSSEAdapterSkeleton.Test.csproj", "{B74D27C6-5D47-412C-A4EE-BB2AAC94D672}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fint.Sse.Adapter.Test", "FintSSEAdapterSkeleton.Test\Fint.Sse.Adapter.Test.csproj", "{B74D27C6-5D47-412C-A4EE-BB2AAC94D672}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fint.Sse.Adapter", "FINT.Sse.Adapter\Fint.Sse.Adapter.csproj", "{4F43D699-2467-41D6-924D-08D439D8D89C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter", "FINT.Sse.Adapter\Fint.Sse.Adapter.csproj", "{4F43D699-2467-41D6-924D-08D439D8D89C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fint.Sse.Adapter.Console", "Fint.Sse.Adapter.Console\Fint.Sse.Adapter.Console.csproj", "{B4B85164-E3D9-42A2-A6D5-59794FC98C6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter.Console", "Fint.Sse.Adapter.Console\Fint.Sse.Adapter.Console.csproj", "{B4B85164-E3D9-42A2-A6D5-59794FC98C6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
