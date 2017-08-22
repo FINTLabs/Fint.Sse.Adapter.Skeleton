@@ -1,15 +1,14 @@
-﻿using Autofac;
-using EventSource4Net;
-using Fint.SSE.Adapter;
-using Fint.SSE.Customcode.Service;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Fint.SSE.Adapter.Event;
-using Fint.SSE.Adapter.Service;
-using Fint.SSE.Adapter.SSE;
+using Autofac;
+using EventSource4Net;
+using Fint.Sse.Adapter.Event;
+using Fint.Sse.Adapter.Service;
+using Fint.Sse.Adapter.SSE;
+using Fint.Sse.Customcode.Service;
+using Serilog;
 
-namespace Fint.SSE
+namespace Fint.Sse
 {
     class Program
     {

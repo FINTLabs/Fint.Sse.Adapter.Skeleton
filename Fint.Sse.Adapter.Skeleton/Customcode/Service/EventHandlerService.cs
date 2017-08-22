@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fint.SSE.Adapter.Event;
-using Fint.SSE.Adapter.Service;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
-using Fint.Relation.Model;
 using Fint.Pwfa.Model;
+using Fint.Relation.Model;
+using Fint.Sse.Adapter.Event;
+using Fint.Sse.Adapter.Service;
 
-namespace Fint.SSE.Customcode.Service
+namespace Fint.Sse.Customcode.Service
 {
     public class EventHandlerService : IEventHandlerService
     {

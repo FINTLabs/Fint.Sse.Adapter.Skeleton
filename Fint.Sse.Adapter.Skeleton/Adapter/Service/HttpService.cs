@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
-using Fint.SSE.Adapter.SSE;
 using Fint.Event.Model;
+using Fint.Sse.Adapter.SSE;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 
-namespace Fint.SSE.Adapter.Service
+namespace Fint.Sse.Adapter.Service
 {
     public class HttpService : IHttpService
     {

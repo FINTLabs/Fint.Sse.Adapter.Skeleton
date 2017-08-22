@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using EventSource4Net;
-using Fint.SSE.Adapter.Service;
-using Fint.SSE.Customcode.Service;
 using Fint.Event.Model;
+using Fint.Sse.Adapter.Service;
+using Fint.Sse.Customcode.Service;
 using Serilog;
 
-namespace Fint.SSE.Adapter.SSE
+namespace Fint.Sse.Adapter.SSE
 {
     public class FintEventListener
     {

@@ -1,6 +1,6 @@
 ﻿﻿using Fint.Event.Model;
 
-namespace Fint.SSE.Adapter.Service
+namespace Fint.Sse.Adapter.Service
 {
     public interface IHttpService
     {

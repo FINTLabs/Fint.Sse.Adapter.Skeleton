@@ -5,28 +5,26 @@ using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
-namespace Fint.Sse.Adapter.Test.Services
+namespace Fint.Sse.Adapter.Tests.Services
 {
-    [TestClass]
     public class EventHandlerServiceTest
     {
-        [TestInitialize]
-        public void Setup()
+        public EventHandlerServiceTest()
         {
             var json = "{\"corrId\":\"c978c986-8d50-496f-8afd-8d27bd68049b\",\"action\":\"health\",\"status\":\"NEW\",\"time\":1481116509260,\"orgId\":\"rogfk.no\",\"source\":\"source\",\"client\":\"client\",\"message\":null,\"data\": \"\"}";
             _evtObj = EventUtil.ToEvent<object>(json);
 
-            _configServiceMock = new Mock<IOptions<AppSettings>>();
+            _appSettingsMock = new Mock<IOptions<AppSettings>>();
             _httpServiceMock = new Mock<IHttpService>();
 
-            _pwfaService = new Mock<IPwfaService>();//PwfaService();
+            _pwfaServiceMock = new Mock<IPwfaService>();//PwfaService();
             _loggerMock = new Mock<ILogger<EventHandlerService>>();
             _statusServiceMock = new Mock<IEventStatusService>();
 
-            _configServiceMock.Setup(ap => ap.Value).Returns(new AppSettings
+            _appSettingsMock.Setup(ap => ap.Value).Returns(new AppSettings
             {
                 ResponseEndpoint = "https://example.com/api/response",
                 StatusEndpoint = "https://example.com/api/status"
@@ -35,7 +33,7 @@ namespace Fint.Sse.Adapter.Test.Services
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_EventStatus_PROVIDER_REJECTED_Should_DoNothing()
         {
             // Arrange
@@ -51,7 +49,7 @@ namespace Fint.Sse.Adapter.Test.Services
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_EventStatus_PROVIDER_ACCEPTED_Should_PostResponse()
         {
             // Arrange
@@ -69,7 +67,7 @@ namespace Fint.Sse.Adapter.Test.Services
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_PwfaAction_GET_ALL_DOGS_Should_CallGetAllDogs()
         {
             // Arrange
@@ -83,11 +81,11 @@ namespace Fint.Sse.Adapter.Test.Services
             // Act
             _handlerService.HandleEvent(_evtObj);
             // Verify
-            _pwfaService.Verify(x => x.GetAllDogs(It.IsAny<Event<object>>()), Times.Once());
+            _pwfaServiceMock.Verify(x => x.GetAllDogs(It.IsAny<Event<object>>()), Times.Once());
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_PwfaAction_GET_ALL_OWNERS_Should_CallGetAllOwners()
         {
             // Arrange
@@ -101,11 +99,11 @@ namespace Fint.Sse.Adapter.Test.Services
             // Act
             _handlerService.HandleEvent(_evtObj);
             // Verify
-            _pwfaService.Verify(x => x.GetAllOwners(It.IsAny<Event<object>>()), Times.Once());
+            _pwfaServiceMock.Verify(x => x.GetAllOwners(It.IsAny<Event<object>>()), Times.Once());
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_PwfaAction_GET_DOG_Should_CallGetDog()
         {
             // Arrange
@@ -119,11 +117,11 @@ namespace Fint.Sse.Adapter.Test.Services
             // Act
             _handlerService.HandleEvent(_evtObj);
             // Verify
-            _pwfaService.Verify(x => x.GetDog(It.IsAny<Event<object>>()), Times.Once());
+            _pwfaServiceMock.Verify(x => x.GetDog(It.IsAny<Event<object>>()), Times.Once());
 
         }
 
-        [TestMethod]
+        [Fact]
         public void Given_PwfaAction_GET_OWNER_Should_CallGetOwner()
         {
             // Arrange
@@ -137,7 +135,7 @@ namespace Fint.Sse.Adapter.Test.Services
             // Act
             _handlerService.HandleEvent(_evtObj);
             // Verify
-            _pwfaService.Verify(x => x.GetOwner(It.IsAny<Event<object>>()), Times.Once());
+            _pwfaServiceMock.Verify(x => x.GetOwner(It.IsAny<Event<object>>()), Times.Once());
 
         }
 
@@ -151,19 +149,19 @@ namespace Fint.Sse.Adapter.Test.Services
             _handlerService = new EventHandlerService(
                 _statusServiceMock.Object,
                 _httpServiceMock.Object,
-                _pwfaService.Object,
-                _configServiceMock.Object,
+                _pwfaServiceMock.Object,
+                _appSettingsMock.Object,
                 _loggerMock.Object
             );
         }
 
-        private Mock<IEventStatusService> _statusServiceMock;
-        private Mock<IOptions<AppSettings>> _configServiceMock;
-        private Mock<IHttpService> _httpServiceMock;
-        private Mock<IPwfaService> _pwfaService;
-        private Mock<ILogger<EventHandlerService>> _loggerMock;
+        private readonly Mock<IEventStatusService> _statusServiceMock;
+        private readonly Mock<IOptions<AppSettings>> _appSettingsMock;
+        private readonly Mock<IHttpService> _httpServiceMock;
+        private readonly Mock<IPwfaService> _pwfaServiceMock;
+        private readonly Mock<ILogger<EventHandlerService>> _loggerMock;
         private EventHandlerService _handlerService;
-        private Event<object> _evtObj;
+        private readonly Event<object> _evtObj;
     }
 }
 

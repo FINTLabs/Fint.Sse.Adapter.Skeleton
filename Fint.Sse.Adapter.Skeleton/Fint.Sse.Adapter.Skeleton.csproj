@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2596F956-ADB0-48FF-B849-A14052D61EF8}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Fint.SSE</RootNamespace>
-    <AssemblyName>FintSseAdapterSkeleton</AssemblyName>
+    <RootNamespace>Fint.Sse</RootNamespace>
+    <AssemblyName>Fint.Sse.Adapter.Skeleton</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
