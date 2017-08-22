@@ -1,56 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Options;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
 using Fint.Pwfa.Model;
-using Fint.Relation.Model;
 using Fint.Sse.Adapter.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Fint.Sse.Adapter.Services
 {
     public class EventHandlerService : IEventHandlerService
     {
-        private IEventStatusService _statusService;
-        private IHttpService _httpService;
-        private AppSettings _appSettings;
-        private IEnumerable<Owner> _owners;
-        private IEnumerable<Dog> _dogs;
-
+        private readonly IEventStatusService _statusService;
+        private readonly IHttpService _httpService;
+        private readonly IPwfaService _pwfaService;
+        private readonly ILogger<EventHandlerService> _logger;
+        private readonly AppSettings _appSettings;
+        
         public EventHandlerService(
             IEventStatusService statusService,
             IHttpService httpService,
-            IOptions<AppSettings> appSettings)
+            IPwfaService pwfaService,
+            IOptions<AppSettings> appSettings,
+            ILogger<EventHandlerService> logger)
         {
             _statusService = statusService;
             _httpService = httpService;
+            _pwfaService = pwfaService;
+            _logger = logger;
             _appSettings = appSettings.Value;
 
-            SetupPwfaData();
-        }
-
-        private void SetupPwfaData()
-        {
-            _owners = new List<Owner>
-            {
-                new Owner
-                {
-                    Id = "10",
-                    Name = "Mickey Mouse"
-                },
-                new Owner
-                {
-                    Id = "20",
-                    Name = "Minne Mouse"
-                }
-            };
-
-            _dogs = new List<Dog>
-            {
-                new Dog {Id = "1", Name = "Pluto", Breed = "Working Springer Spaniel"},
-                new Dog {Id = "2", Name = "Lady", Breed = "Working Springer Spaniel"}
-            };
         }
 
         public void HandleEvent(Event<object> serverSideEvent)
@@ -69,28 +47,25 @@ namespace Fint.Sse.Adapter.Services
                     switch (action)
                     {
                         case PwfaActions.GET_DOG:
-                            GetDog(serverSideEvent);
+                            _pwfaService.GetDog(serverSideEvent);
                             break;
                         case PwfaActions.GET_OWNER:
-                            GetOwner(serverSideEvent);
+                            _pwfaService.GetOwner(serverSideEvent);
                             break;
                         case PwfaActions.GET_ALL_DOGS:
-                            GetAllDog(serverSideEvent);
+                            _pwfaService.GetAllDogs(serverSideEvent);
                             break;
                         case PwfaActions.GET_ALL_OWNERS:
-                            GetAllOwners(serverSideEvent);
-
+                            _pwfaService.GetAllOwners(serverSideEvent);
                             break;
                         default:
-                            throw new Exception($"Unhandled action: {action}");
-                            break;
+                            var message = $"Unhandled action: {action}";
+                            _logger.LogError(message);
+                            throw new Exception(message);
                     }
 
-                    if (responseEvent != null)
-                    {
-                        responseEvent.Status = Status.PROVIDER_RESPONSE;
-                        _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
-                    }
+                    responseEvent.Status = Status.PROVIDER_RESPONSE;
+                    _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
                 }
             }
         }
@@ -112,90 +87,10 @@ namespace Fint.Sse.Adapter.Services
 
             _httpService.Post(_appSettings.ResponseEndpoint, healthCheckEvent);
         }
-
-        private void GetDog(Event<object> serverSideEvent)
-        {
-            var dog = Enumerable.FirstOrDefault<Dog>(_dogs, d => d.Id.Equals(serverSideEvent.Query));
-
-            var relation = new RelationBuilder()
-                .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("no.fint.pwfa.model.Owner") //TODO
-                .Value($"{dog?.Id}0")
-                .Build();
-
-            var resource = FintResource<Dog>
-                .With(dog)
-                .AddRelasjoner(relation);
-
-            serverSideEvent.Data.Add(resource);
-
-        }
-
-        private void GetOwner(Event<object> serverSideEvent)
-        {
-            var owner = Enumerable.FirstOrDefault<Owner>(_owners, o => o.Id.Equals(serverSideEvent.Query));
-
-            var relation = new RelationBuilder()
-                .With(Owner.Relasjonsnavn.DOG)
-                .ForType("no.fint.pwfa.model.Dog") //TODO
-                .Value($"{owner?.Id.Substring(0, 1)}")
-                .Build();
-
-            var resource = FintResource<Owner>
-                .With(owner)
-                .AddRelasjoner(relation);
-
-            serverSideEvent.Data.Add(resource);
-
-        }
-
-        private void GetAllDog(Event<object> serverSideEvent)
-        {
-            var relationOwner1 = new RelationBuilder()
-                .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("no.fint.pwfa.model.Owner") //TODO
-                .Value("10")
-                .Build();
-
-            var relationOwner2 = new RelationBuilder()
-                .With(Dog.Relasjonsnavn.OWNER)
-                .ForType("no.fint.pwfa.model.Owner") //TODO
-                .Value("20")
-                .Build();
-
-            var dogs = Enumerable.ToList<Dog>(_dogs);
-
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
-
-        }
-
-        private void GetAllOwners(Event<object> serverSideEvent)
-        {
-            var relationDog1 = new RelationBuilder()
-                .With(Owner.Relasjonsnavn.DOG)
-                .ForType("no.fint.pwfa.model.Dog") //TODO
-                .Value("1")
-                .Build();
-
-            var relationDog2 = new RelationBuilder()
-                .With(Owner.Relasjonsnavn.DOG)
-                .ForType("no.fint.pwfa.model.Dog") //TODO
-                .Value("2")
-                .Build();
-
-            var owners = Enumerable.ToList<Owner>(_owners);
-
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));
-
-        }
-
+        
         private bool IsHealthy()
         {
-            /**
-             * Check application connectivity etc.
-             */
+            //Check application connectivity etc.
             return true;
         }
     }

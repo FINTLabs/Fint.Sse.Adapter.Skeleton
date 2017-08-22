@@ -17,11 +17,8 @@ namespace Fint.Sse.Adapter.Services
 
         public Event<object> VerifyEvent(Event<object> serverSideEvent)
         {
-            if (ActionUtils.IsValidStatusAction(serverSideEvent.Action))
-            {
-                serverSideEvent.Status = Status.PROVIDER_ACCEPTED;
-            }
-            else if (ActionUtils.IsValidPwfaAction(serverSideEvent.Action))
+            if (ActionUtils.IsValidStatusAction(serverSideEvent.Action) 
+                || ActionUtils.IsValidPwfaAction(serverSideEvent.Action))
             {
                 serverSideEvent.Status = Status.PROVIDER_ACCEPTED;
             }
