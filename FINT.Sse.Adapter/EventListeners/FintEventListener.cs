@@ -32,8 +32,6 @@ namespace Fint.SSE.Adapter.EventListeners
         {
             _orgId = orgId;
 
-            var cancellationTokenSource = new CancellationTokenSource();
-
             var headers = new Dictionary<string, string>
             {
                 { FintHeaders.ORG_ID_HEADER, orgId }
@@ -50,12 +48,13 @@ namespace Fint.SSE.Adapter.EventListeners
 
             eventSource.EventReceived += new EventHandler<ServerSentEventReceivedEventArgs>((o, e) =>
             {
-                if(e != null && e.Message != null)
+                if(e?.Message != null)
                 {
                     HandleEvent(e.Message.Data);
                 }
             });
 
+            var cancellationTokenSource = new CancellationTokenSource();
             eventSource.Start(cancellationTokenSource.Token);
             eventSource.CancellationToken = cancellationTokenSource;
 
@@ -66,12 +65,7 @@ namespace Fint.SSE.Adapter.EventListeners
         {
             var serverSideEvent = EventUtil.ToEvent<object>(data);
 
-            if (serverSideEvent == null)
-            {
-                _logger.LogError("Could not parse Event object");
-            }
-            else
-            {
+            if (serverSideEvent != null)
                 if (serverSideEvent.OrgId == _orgId)
                 {
                     _logger.LogInformation("{orgId}: Event received {@Event}", _orgId, data);
@@ -81,6 +75,9 @@ namespace Fint.SSE.Adapter.EventListeners
                 {
                     _logger.LogInformation("This is not EventListener for {org}", _orgId);
                 }
+            else
+            {
+                _logger.LogError("Could not parse Event object");
             }
         }
     }

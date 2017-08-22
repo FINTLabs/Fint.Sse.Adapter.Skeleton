@@ -21,15 +21,6 @@ namespace Fint.Sse.Adapter.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                ////DONE: Moved this to a formatter in Program.cs
-                //JsonConvert.DefaultSettings = (() =>
-                //{
-                //    var settings = new JsonSerializerSettings();
-                //    settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
-                //    settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                //    return settings;
-                //});
-
                 var contentType = new MediaTypeWithQualityHeaderValue("application/json");
                 client.DefaultRequestHeaders.Accept.Add(contentType);
 
