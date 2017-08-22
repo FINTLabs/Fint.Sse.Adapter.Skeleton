@@ -34,7 +34,6 @@ namespace Fint.Sse.Adapter.Console
         {
             var eventSources = new Dictionary<string, EventSource>();
 
-            //_logger.LogInformation("\r\n___________.___ __________________\r\n\\_   _____/|   |\\      \\__    ___/\r\n |    __)  |   |/   |   \\|    |   \r\n |     \\   |   /    |    \\    |   \r\n \\___  /   |___\\____|__  /____|   \r\n     \\/                \\/         \r\n");
             System.Console.WriteLine("\r\n___________.___ __________________\r\n\\_   _____/|   |\\      \\__    ___/\r\n |    __)  |   |/   |   \\|    |   \r\n |     \\   |   /    |    \\    |   \r\n \\___  /   |___\\____|__  /____|   \r\n     \\/                \\/         \r\n");
 
             RegisterEventSourceListeners(eventSources);
