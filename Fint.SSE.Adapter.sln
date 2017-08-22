@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter", "FINT.Sse.Adapter\Fint.Sse.Adapter.csproj", "{4F43D699-2467-41D6-924D-08D439D8D89C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter", "Fint.Sse.Adapter\Fint.Sse.Adapter.csproj", "{4F43D699-2467-41D6-924D-08D439D8D89C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter.Console", "Fint.Sse.Adapter.Console\Fint.Sse.Adapter.Console.csproj", "{B4B85164-E3D9-42A2-A6D5-59794FC98C6A}"
 EndProject
