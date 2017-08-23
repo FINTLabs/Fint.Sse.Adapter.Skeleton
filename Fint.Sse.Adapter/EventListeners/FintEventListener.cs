@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using EventSource4Net;
 using Fint.Event.Model;
 using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
 
-namespace Fint.SSE.Adapter.EventListeners
+namespace Fint.Sse.Adapter.EventListeners
 {
     public class FintEventListener : IFintEventListener
     {

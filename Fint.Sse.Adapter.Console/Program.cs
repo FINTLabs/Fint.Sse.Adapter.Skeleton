@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
-using Fint.SSE.Adapter.EventListeners;
+using Fint.Sse.Adapter.EventListeners;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,6 @@ namespace Fint.Sse.Adapter.Console
 {
     class Program
     {
-        public static IConfigurationRoot Configuration { get; set; }
         static void Main(string[] args)
         {
             // create service collection
