@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FINT.Sse.Adapter\Fint.Sse.Adapter.csproj" />
+    <ProjectReference Include="..\Fint.Sse.Adapter\Fint.Sse.Adapter.csproj" />
   </ItemGroup>
 
 </Project>

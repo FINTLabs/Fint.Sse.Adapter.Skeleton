@@ -37,13 +37,14 @@ namespace Fint.SSE.Adapter.EventListeners
                 { FintHeaders.ORG_ID_HEADER, orgId }
             };
 
-            var url = new Uri(string.Format("{0}/{1}", _configurationOptions.SseEndpoint, Guid.NewGuid().ToString()));
+            var uuid = Guid.NewGuid().ToString();
+            var url = new Uri(string.Format("{0}/{1}", _configurationOptions.SseEndpoint, uuid));
 
             var eventSource = new EventSource(url, headers, 10000);
 
             eventSource.StateChanged += new EventHandler<StateChangedEventArgs>((o, e) =>
             {
-                _logger.LogInformation("{orgId}: SSE state change {@state}", _orgId, e.State);
+                _logger.LogInformation("{orgId}: SSE state change {@state} for uuid {uuid}", _orgId, e.State, uuid);
             });
 
             eventSource.EventReceived += new EventHandler<ServerSentEventReceivedEventArgs>((o, e) =>
