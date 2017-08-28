@@ -34,6 +34,8 @@ namespace Fint.Sse.Adapter.Console
             var eventSources = new Dictionary<string, EventSource>();
 
             System.Console.WriteLine("\r\n___________.___ __________________\r\n\\_   _____/|   |\\      \\__    ___/\r\n |    __)  |   |/   |   \\|    |   \r\n |     \\   |   /    |    \\    |   \r\n \\___  /   |___\\____|__  /____|   \r\n     \\/                \\/         \r\n");
+            System.Console.WriteLine("  Greetings from FINTLabs!");
+            System.Console.WriteLine();
 
             RegisterEventSourceListeners(eventSources);
 
