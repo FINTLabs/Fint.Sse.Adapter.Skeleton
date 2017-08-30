@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Fint.Sse\Fint.Sse\Fint.Sse.csproj" />
+  </ItemGroup>
+
 </Project>

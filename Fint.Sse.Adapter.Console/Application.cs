@@ -57,6 +57,8 @@ namespace Fint.Sse.Adapter.Console
             foreach (var item in eventSources.ToList())
             {
                 item.Value.CancellationToken.Cancel();
+                var eventSource = eventSources.Single(es => es.Key == item.Key);
+                eventSource.Value.CancellationToken.Cancel();
                 eventSources.Remove(item.Key);
                 _logger.LogInformation($"Eventsource for {item.Key} is cancelled.");
             }
@@ -67,7 +69,10 @@ namespace Fint.Sse.Adapter.Console
             foreach (var org in _appSettings.Organizations.Split(","))
             {
                 _logger.LogInformation($"Adding listener for {org}.");
-                eventSources.Add(org, _fintEventListener.Listen(org));
+
+                //var eventSource = _fintEventListener.Listen(org);
+
+                //eventSources.Add(org, eventSource);
             }
         }
     }

@@ -1,7 +1,9 @@
 ﻿using System.IO;
+using System.Net.Http;
+using Fint.Sse.Adapter.EventListeners;
 using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
-using Fint.Sse.Adapter.EventListeners;
+//using Fint.Sse.Adapter.EventListeners;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +26,7 @@ namespace Fint.Sse.Adapter.Console
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // run app
-            serviceProvider.GetService<Application>().Run();
+            serviceProvider.GetService<SseApplication>().Run();
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
@@ -50,14 +52,18 @@ namespace Fint.Sse.Adapter.Console
             ConfigureConsole(configuration);
 
             // add services
+            serviceCollection.AddTransient<HttpClient>();
+            serviceCollection.AddTransient<EventSource>();
             serviceCollection.AddTransient<IHttpService, HttpService>();
             serviceCollection.AddTransient<IEventStatusService, EventStatusService>();
             serviceCollection.AddTransient<IEventHandlerService, EventHandlerService>();
-            serviceCollection.AddTransient<IFintEventListener, FintEventListener>();
+            serviceCollection.AddTransient<IEventHandler, FintEventHandler>();
+            serviceCollection.AddSingleton<Sse.IFintEventListener, FintEventListener>();
+            serviceCollection.AddTransient<Sse.Adapter.EventListeners.IFintEventListener, EventListeners.FintEventListener>();
             serviceCollection.AddTransient<IPwfaService, PwfaService>();
 
             // add app
-            serviceCollection.AddTransient<Application>();
+            serviceCollection.AddTransient<SseApplication>();
         }
 
         private static void ConfigureJson()
