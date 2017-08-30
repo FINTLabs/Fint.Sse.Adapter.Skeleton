@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fint.Event.Model;
 using Fint.Pwfa.Model;
-using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

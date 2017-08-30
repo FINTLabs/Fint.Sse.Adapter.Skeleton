@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Fint.Sse.Adapter.Models;
-using Fint.Sse.Adapter.EventListeners;
 
 namespace Fint.Sse.Adapter.Console
 {

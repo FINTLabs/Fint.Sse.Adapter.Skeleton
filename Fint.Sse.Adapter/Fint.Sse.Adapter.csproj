@@ -17,4 +17,8 @@
     <ProjectReference Include="..\..\Fint.Sse\Fint.Sse\Fint.Sse.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

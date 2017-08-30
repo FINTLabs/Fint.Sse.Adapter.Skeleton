@@ -1,9 +1,5 @@
 ﻿using System.IO;
 using System.Net.Http;
-using Fint.Sse.Adapter.EventListeners;
-using Fint.Sse.Adapter.Models;
-using Fint.Sse.Adapter.Services;
-//using Fint.Sse.Adapter.EventListeners;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using Fint.Sse.Adapter.Services;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -58,8 +55,7 @@ namespace Fint.Sse.Adapter.Console
             serviceCollection.AddTransient<IEventStatusService, EventStatusService>();
             serviceCollection.AddTransient<IEventHandlerService, EventHandlerService>();
             serviceCollection.AddTransient<IEventHandler, FintEventHandler>();
-            serviceCollection.AddSingleton<Sse.IFintEventListener, FintEventListener>();
-            serviceCollection.AddTransient<Sse.Adapter.EventListeners.IFintEventListener, EventListeners.FintEventListener>();
+            serviceCollection.AddSingleton<IFintEventListener, FintEventListener>();
             serviceCollection.AddTransient<IPwfaService, PwfaService>();
 
             // add app

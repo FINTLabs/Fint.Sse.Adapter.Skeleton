@@ -1,4 +1,4 @@
-﻿namespace Fint.Sse.Adapter.Models
+﻿namespace Fint.Sse.Adapter
 {
     public class AppSettings
     {

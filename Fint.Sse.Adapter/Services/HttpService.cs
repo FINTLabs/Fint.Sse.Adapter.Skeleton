@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using Fint.Event.Model;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Fint.Sse.Adapter.Models;
 
 namespace Fint.Sse.Adapter.Services
 {

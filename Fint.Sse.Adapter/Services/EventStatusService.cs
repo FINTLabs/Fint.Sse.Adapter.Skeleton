@@ -1,6 +1,5 @@
 ﻿using Fint.Event.Model;
 using Microsoft.Extensions.Options;
-using Fint.Sse.Adapter.Models;
 
 namespace Fint.Sse.Adapter.Services
 {
