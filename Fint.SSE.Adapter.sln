@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter.Console", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Adapter.Tests", "Fint.Sse.Adapter.Tests\Fint.Sse.Adapter.Tests.csproj", "{6DFAC4EC-9C17-407B-8DBB-85973ED9427A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse", "..\Fint.Sse\Fint.Sse\Fint.Sse.csproj", "{56D1B265-229A-442C-9003-16615C6399D0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fint.Sse.Tests", "..\Fint.Sse\Fint.Sse.Tests\Fint.Sse.Tests.csproj", "{E5C64620-52B5-405D-8804-37395AD5FCD8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{6DFAC4EC-9C17-407B-8DBB-85973ED9427A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DFAC4EC-9C17-407B-8DBB-85973ED9427A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DFAC4EC-9C17-407B-8DBB-85973ED9427A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56D1B265-229A-442C-9003-16615C6399D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56D1B265-229A-442C-9003-16615C6399D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56D1B265-229A-442C-9003-16615C6399D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56D1B265-229A-442C-9003-16615C6399D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5C64620-52B5-405D-8804-37395AD5FCD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5C64620-52B5-405D-8804-37395AD5FCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5C64620-52B5-405D-8804-37395AD5FCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5C64620-52B5-405D-8804-37395AD5FCD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
