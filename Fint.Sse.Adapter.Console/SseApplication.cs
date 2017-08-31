@@ -7,50 +7,49 @@ namespace Fint.Sse.Adapter.Console
     public class SseApplication : IApplication
     {
         private readonly IFintEventListener _listener;
-        private  FintSseSettings _appSettings;
+        private  FintSseSettings _fintSseSettings;
         private readonly ILogger<SseApplication> _logger;
         public FintSseApplication _app { get; set; }
 
         public SseApplication(
             IFintEventListener listener,
-            IOptions<FintSseSettings> appSettings,
+            IOptions<FintSseSettings> fintSseSettings,
             ILogger<SseApplication> logger)
         {
             _listener = listener;
-            _appSettings = appSettings.Value;
+            _fintSseSettings = fintSseSettings.Value;
             _logger = logger;
         }
 
         public void Run()
         {
-            _appSettings = new FintSseSettings
+            try
             {
-                SseThreadInterval = Convert.ToInt32(TimeSpan.FromSeconds(15).TotalMilliseconds),
-                AllowConcurrentConnections = true,
-                Organizations = new []{"pwfa.no"},
-                SseEndpoint = "https://play-with-fint-adapter.felleskomponent.no/provider/sse"
-            };
+                DisplayLogo();
+                _app = new FintSseApplication(_listener, new OptionsWrapper<FintSseSettings>(_fintSseSettings));
+                RegisterEventSourceListeners();
 
-            _app = new FintSseApplication(_listener, new OptionsWrapper<FintSseSettings>(_appSettings));
-
-            RegisterEventSourceListeners();
-
-            DisplayLogo();
-            //RegisterEventSourceListeners(eventSources);
-
-            ConsoleKey key;
-            while ((key = System.Console.ReadKey().Key) != ConsoleKey.X)
-            {
-                switch (key)
+                ConsoleKey key;
+                while ((key = System.Console.ReadKey().Key) != ConsoleKey.X)
                 {
-                    case ConsoleKey.C:
-                        CancelEventSourceListeners();
-                        break;
-                    case ConsoleKey.R:
-                        //RegisterEventSourceListeners(eventSources);
-                        break;
+                    switch (key)
+                    {
+                        case ConsoleKey.C:
+                            CancelEventSourceListeners();
+                            break;
+                        case ConsoleKey.R:
+                            RegisterEventSourceListeners();
+                            break;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                _logger.LogCritical("The program crashed with the following message {error}", e);
+                CancelEventSourceListeners();
+                RegisterEventSourceListeners();
+            }
+
 
         }
 
@@ -61,11 +60,21 @@ namespace Fint.Sse.Adapter.Console
 
         private void RegisterEventSourceListeners()
         {
-            foreach (var org in _appSettings.Organizations)
+            foreach (var org in _fintSseSettings.Organizations)
             {
                 _logger.LogInformation($"Adding listener for {org}.");
 
-                _app.Connect(org);
+                try
+                {
+                    _app.Connect(org);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogCritical("The program crashed with the following message {error}", e);
+                    CancelEventSourceListeners();
+                    RegisterEventSourceListeners();
+                }
+
             }
         }
 

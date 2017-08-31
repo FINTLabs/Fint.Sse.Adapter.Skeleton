@@ -67,7 +67,7 @@ namespace Fint.Sse.Adapter.Console
 
         private void RegisterEventSourceListeners(Dictionary<string, EventSource> eventSources)
         {
-            foreach (var org in _appSettings.Organizations.Split(","))
+            foreach (var org in _appSettings.Organizations)
             {
                 _logger.LogInformation($"Adding listener for {org}.");
 
