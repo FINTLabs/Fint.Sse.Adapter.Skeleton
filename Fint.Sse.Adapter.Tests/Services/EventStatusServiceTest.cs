@@ -1,5 +1,4 @@
 ﻿using Fint.Event.Model;
-using Fint.Sse.Adapter.Models;
 using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Options;
 using Moq;

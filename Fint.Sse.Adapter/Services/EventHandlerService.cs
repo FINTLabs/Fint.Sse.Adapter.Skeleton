@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
 using Fint.Pwfa.Model;
-using Fint.Sse.Adapter.Models;
 using Microsoft.Extensions.Logging;
 
 namespace Fint.Sse.Adapter.Services

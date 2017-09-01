@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using Fint.Sse.Adapter.Models;
-using Fint.Sse.Adapter.Services;
-using Fint.Sse.Adapter.EventListeners;
+using System.Linq;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using Fint.Sse.Adapter.Services;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -24,7 +24,7 @@ namespace Fint.Sse.Adapter.Console
             var serviceProvider = serviceCollection.BuildServiceProvider();
 
             // run app
-            serviceProvider.GetService<Application>().Run();
+            serviceProvider.GetService<SseApplication>().Run();
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)
@@ -44,20 +44,24 @@ namespace Fint.Sse.Adapter.Console
 
             serviceCollection.AddOptions();
             serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
+            serviceCollection.Configure<FintSseSettings>(configuration.GetSection("FintSseSettings"));
 
             ConfigureJson();
             ConfigureLogging(configuration);
             ConfigureConsole(configuration);
 
             // add services
+            serviceCollection.AddTransient<HttpClient>();
+            serviceCollection.AddTransient<EventSource>();
             serviceCollection.AddTransient<IHttpService, HttpService>();
             serviceCollection.AddTransient<IEventStatusService, EventStatusService>();
             serviceCollection.AddTransient<IEventHandlerService, EventHandlerService>();
-            serviceCollection.AddTransient<IFintEventListener, FintEventListener>();
+            serviceCollection.AddTransient<IEventHandler, FintEventHandler>();
+            serviceCollection.AddSingleton<IFintEventListener, FintEventListener>();
             serviceCollection.AddTransient<IPwfaService, PwfaService>();
 
             // add app
-            serviceCollection.AddTransient<Application>();
+            serviceCollection.AddTransient<SseApplication>();
         }
 
         private static void ConfigureJson()

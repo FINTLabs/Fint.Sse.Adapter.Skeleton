@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Fint.Sse.Adapter.Models;
-using Fint.Sse.Adapter.EventListeners;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -60,6 +58,8 @@ namespace Fint.Sse.Adapter.Console
             foreach (var item in eventSources.ToList())
             {
                 item.Value.CancellationToken.Cancel();
+                var eventSource = eventSources.Single(es => es.Key == item.Key);
+                eventSource.Value.CancellationToken.Cancel();
                 eventSources.Remove(item.Key);
                 _logger.LogInformation($"Eventsource for {item.Key} is cancelled.");
             }
@@ -67,10 +67,13 @@ namespace Fint.Sse.Adapter.Console
 
         private void RegisterEventSourceListeners(Dictionary<string, EventSource> eventSources)
         {
-            foreach (var org in _appSettings.Organizations.Split(","))
+            foreach (var org in _appSettings.Organizations)
             {
                 _logger.LogInformation($"Adding listener for {org}.");
-                eventSources.Add(org, _fintEventListener.Listen(org));
+
+                //var eventSource = _fintEventListener.Listen(org);
+
+                //eventSources.Add(org, eventSource);
             }
         }
 
