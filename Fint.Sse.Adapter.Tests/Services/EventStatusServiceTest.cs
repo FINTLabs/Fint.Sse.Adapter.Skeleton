@@ -10,6 +10,7 @@ namespace Fint.Sse.Adapter.Tests.Services
     {
         public EventStatusServiceTest()
         {
+            _accessToken = "";
             _httpService = new Mock<IHttpService>();
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
             _appSettingsMock.Setup(ap => ap.Value).Returns(new AppSettings
@@ -51,5 +52,6 @@ namespace Fint.Sse.Adapter.Tests.Services
 
         private readonly Mock<IOptions<AppSettings>> _appSettingsMock;
         private readonly Mock<IHttpService> _httpService;
+        private readonly string _accessToken;
     }
 }

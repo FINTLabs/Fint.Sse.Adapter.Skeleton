@@ -44,14 +44,18 @@ namespace Fint.Sse.Adapter.Console
 
             serviceCollection.AddOptions();
             serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
-            serviceCollection.Configure<FintSseSettings>(configuration.GetSection("FintSseSettings"));
+            serviceCollection.Configure<FintSseSettings>(configuration.GetSection("FintSseSettings"));            
 
             ConfigureJson();
             ConfigureLogging(configuration);
             ConfigureConsole(configuration);
 
-            // add services
-            serviceCollection.AddTransient<HttpClient>();
+            // add services with config
+            serviceCollection.AddOAuthTokenService(configuration.GetSection("OAuthTokenService"));            
+
+            // add services            
+            serviceCollection.AddTransient<ITokenService, TokenService>();
+            serviceCollection.AddTransient<HttpClient>(); 
             serviceCollection.AddTransient<EventSource>();
             serviceCollection.AddTransient<IHttpService, HttpService>();
             serviceCollection.AddTransient<IEventStatusService, EventStatusService>();

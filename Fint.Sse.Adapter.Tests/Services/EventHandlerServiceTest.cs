@@ -14,6 +14,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         public EventHandlerServiceTest()
         {
             var json = "{\"corrId\":\"c978c986-8d50-496f-8afd-8d27bd68049b\",\"action\":\"health\",\"status\":\"NEW\",\"time\":1481116509260,\"orgId\":\"rogfk.no\",\"source\":\"source\",\"client\":\"client\",\"message\":null,\"data\": \"\"}";
+            _accessToken = "";
             _evtObj = EventUtil.ToEvent<object>(json);
 
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
@@ -161,6 +162,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         private readonly Mock<ILogger<EventHandlerService>> _loggerMock;
         private EventHandlerService _handlerService;
         private readonly Event<object> _evtObj;
+        private readonly string _accessToken;
     }
 }
 

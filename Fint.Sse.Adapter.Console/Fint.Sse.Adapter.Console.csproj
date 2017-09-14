@@ -7,8 +7,6 @@
 
   <ItemGroup>
 
-    <PackageReference Include="FINT.Sse" Version="1.0.3" />
-
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.0.0" />
@@ -26,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Fint.Sse\Fint.Sse\Fint.Sse.csproj" />
     <ProjectReference Include="..\Fint.Sse.Adapter\Fint.Sse.Adapter.csproj" />
   </ItemGroup>
 
