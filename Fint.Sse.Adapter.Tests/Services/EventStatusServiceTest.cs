@@ -10,8 +10,7 @@ namespace Fint.Sse.Adapter.Tests.Services
     public class EventStatusServiceTest
     {
         public EventStatusServiceTest()
-        {
-            _accessToken = "";
+        {            
             _httpService = new Mock<IHttpService>();
             _logger = new Mock<ILogger<HttpService>>();
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
@@ -33,7 +32,7 @@ namespace Fint.Sse.Adapter.Tests.Services
             var evt = statusService.VerifyEvent(new Event<object> { Action = "health" });
 
             // Verify
-            Assert.Equal(Status.PROVIDER_ACCEPTED, evt.Status);
+            Assert.Equal(Status.ADAPTER_ACCEPTED, evt.Status);
             _httpService.Verify(x => x.Post(It.IsAny<string>(), It.IsAny<Event<object>>()), Times.Once());
         }
 
@@ -48,13 +47,12 @@ namespace Fint.Sse.Adapter.Tests.Services
             var evt = statusService.VerifyEvent(new Event<object> { Action = "SomeUndefinedAction" });
 
             // Verify
-            Assert.Equal(Status.PROVIDER_REJECTED, evt.Status);
+            Assert.Equal(Status.ADAPTER_REJECTED, evt.Status);
             _httpService.Verify(x => x.Post(It.IsAny<string>(), It.IsAny<Event<object>>()), Times.Once());
         }
 
         private readonly Mock<IOptions<AppSettings>> _appSettingsMock;
-        private readonly Mock<IHttpService> _httpService;
-        private readonly string _accessToken;
+        private readonly Mock<IHttpService> _httpService;        
         private readonly Mock<ILogger<HttpService>> _logger;
     }
 }

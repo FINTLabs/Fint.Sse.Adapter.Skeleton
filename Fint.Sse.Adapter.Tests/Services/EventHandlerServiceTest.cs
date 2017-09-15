@@ -13,8 +13,7 @@ namespace Fint.Sse.Adapter.Tests.Services
     {
         public EventHandlerServiceTest()
         {
-            var json = "{\"corrId\":\"c978c986-8d50-496f-8afd-8d27bd68049b\",\"action\":\"health\",\"status\":\"NEW\",\"time\":1481116509260,\"orgId\":\"rogfk.no\",\"source\":\"source\",\"client\":\"client\",\"message\":null,\"data\": \"\"}";
-            _accessToken = "";
+            var json = "{\"corrId\":\"c978c986-8d50-496f-8afd-8d27bd68049b\",\"action\":\"health\",\"status\":\"NEW\",\"time\":1481116509260,\"orgId\":\"rogfk.no\",\"source\":\"source\",\"client\":\"client\",\"message\":null,\"data\": \"\"}";            
             _evtObj = EventUtil.ToEvent<object>(json);
 
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
@@ -34,10 +33,10 @@ namespace Fint.Sse.Adapter.Tests.Services
         }
 
         [Fact]
-        public void Given_EventStatus_PROVIDER_REJECTED_Should_DoNothing()
+        public void Given_EventStatus_ADAPTER_REJECTED_Should_DoNothing()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_REJECTED;
+            _evtObj.Status = Status.ADAPTER_REJECTED;
 
             SetupStatusServiceMock();
             SetupHandlerService();
@@ -50,10 +49,10 @@ namespace Fint.Sse.Adapter.Tests.Services
         }
 
         [Fact]
-        public void Given_EventStatus_PROVIDER_ACCEPTED_Should_PostResponse()
+        public void Given_EventStatus_ADAPTER_ACCEPTED_Should_PostResponse()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_ACCEPTED;
+            _evtObj.Status = Status.ADAPTER_ACCEPTED;
             _evtObj.Action = PwfaActions.GET_ALL_DOGS.ToString();
             _evtObj.Data = new List<object>();
 
@@ -71,7 +70,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         public void Given_PwfaAction_GET_ALL_DOGS_Should_CallGetAllDogs()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_ACCEPTED;
+            _evtObj.Status = Status.ADAPTER_ACCEPTED;
             _evtObj.Action = PwfaActions.GET_ALL_DOGS.ToString();
             _evtObj.Data = new List<object>();
 
@@ -89,7 +88,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         public void Given_PwfaAction_GET_ALL_OWNERS_Should_CallGetAllOwners()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_ACCEPTED;
+            _evtObj.Status = Status.ADAPTER_ACCEPTED;
             _evtObj.Action = PwfaActions.GET_ALL_OWNERS.ToString();
             _evtObj.Data = new List<object>();
 
@@ -107,7 +106,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         public void Given_PwfaAction_GET_DOG_Should_CallGetDog()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_ACCEPTED;
+            _evtObj.Status = Status.ADAPTER_ACCEPTED;
             _evtObj.Action = PwfaActions.GET_DOG.ToString();
             _evtObj.Data = new List<object>();
 
@@ -125,7 +124,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         public void Given_PwfaAction_GET_OWNER_Should_CallGetOwner()
         {
             // Arrange
-            _evtObj.Status = Status.PROVIDER_ACCEPTED;
+            _evtObj.Status = Status.ADAPTER_ACCEPTED;
             _evtObj.Action = PwfaActions.GET_OWNER.ToString();
             _evtObj.Data = new List<object>();
 
@@ -162,7 +161,6 @@ namespace Fint.Sse.Adapter.Tests.Services
         private readonly Mock<ILogger<EventHandlerService>> _loggerMock;
         private EventHandlerService _handlerService;
         private readonly Event<object> _evtObj;
-        private readonly string _accessToken;
     }
 }
 
