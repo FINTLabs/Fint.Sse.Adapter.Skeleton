@@ -25,7 +25,7 @@ namespace Fint.Sse.Adapter.Services
         {
             var accessToken = "";
 
-            if (_tokenService.UseAuthentication)
+            if (_tokenService.OAuthEnabled)
             {
                 var task = Task.Run(async () => {
                     return await _tokenService.GetAccessTokenAsync();
@@ -37,7 +37,7 @@ namespace Fint.Sse.Adapter.Services
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             _httpClient.DefaultRequestHeaders.Accept.Add(contentType);
 
-            if (_tokenService.UseAuthentication)
+            if (_tokenService.OAuthEnabled)
             {
                 _httpClient.SetBearerToken(accessToken);
             }
