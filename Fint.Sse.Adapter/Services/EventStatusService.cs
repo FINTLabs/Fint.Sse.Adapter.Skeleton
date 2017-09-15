@@ -1,6 +1,6 @@
 ﻿using Fint.Event.Model;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Fint.Sse.Adapter.Services
 {

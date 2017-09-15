@@ -1,6 +1,6 @@
 ﻿using System;
-using Fint.Pwfa.Model;
 using Fint.Event.Model;
+using Fint.Pwfa.Model;
 
 namespace Fint.Sse.Adapter
 {

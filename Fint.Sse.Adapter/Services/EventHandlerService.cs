@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.Extensions.Options;
 using Fint.Event.Model;
 using Fint.Event.Model.Health;
 using Fint.Pwfa.Model;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace Fint.Sse.Adapter.Services
 {

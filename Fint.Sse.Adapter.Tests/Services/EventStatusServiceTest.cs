@@ -1,7 +1,7 @@
 ﻿using Fint.Event.Model;
 using Fint.Sse.Adapter.Services;
-using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
 

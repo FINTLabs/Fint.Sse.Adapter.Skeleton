@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Net.Http;
+using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using Fint.Sse.Adapter.Services;
 
 namespace Fint.Sse.Adapter.Console
 {
