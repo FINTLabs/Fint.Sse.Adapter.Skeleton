@@ -14,7 +14,7 @@ namespace Fint.Sse.Adapter.Services
         private readonly IPwfaService _pwfaService;
         private readonly ILogger<EventHandlerService> _logger;
         private readonly AppSettings _appSettings;
-        
+
         public EventHandlerService(
             IEventStatusService statusService,
             IHttpService httpService,
@@ -27,7 +27,6 @@ namespace Fint.Sse.Adapter.Services
             _pwfaService = pwfaService;
             _logger = logger;
             _appSettings = appSettings.Value;
-
         }
 
         public void HandleEvent(Event<object> serverSideEvent)
@@ -40,7 +39,8 @@ namespace Fint.Sse.Adapter.Services
             {
                 if (_statusService.VerifyEvent(serverSideEvent).Status == Status.ADAPTER_ACCEPTED)
                 {
-                    var action =(PwfaActions) Enum.Parse(typeof(PwfaActions), serverSideEvent.Action, ignoreCase: true);
+                    var action =
+                        (PwfaActions) Enum.Parse(typeof(PwfaActions), serverSideEvent.Action, ignoreCase: true);
                     Event<object> responseEvent = serverSideEvent;
 
                     switch (action)
@@ -87,7 +87,7 @@ namespace Fint.Sse.Adapter.Services
 
             _httpService.Post(_appSettings.ResponseEndpoint, healthCheckEvent);
         }
-        
+
         private bool IsHealthy()
         {
             //Check application connectivity etc.

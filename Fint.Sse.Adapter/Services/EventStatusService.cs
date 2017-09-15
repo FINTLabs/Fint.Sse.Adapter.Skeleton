@@ -10,7 +10,8 @@ namespace Fint.Sse.Adapter.Services
         private readonly AppSettings _appSettings;
         private readonly ILogger _logger;
 
-        public EventStatusService(ILogger<HttpService> logger, IHttpService httpService, IOptions<AppSettings> appSettings)
+        public EventStatusService(ILogger<HttpService> logger, IHttpService httpService,
+            IOptions<AppSettings> appSettings)
         {
             _httpService = httpService;
             _appSettings = appSettings.Value;
@@ -19,7 +20,7 @@ namespace Fint.Sse.Adapter.Services
 
         public Event<object> VerifyEvent(Event<object> serverSideEvent)
         {
-            if (ActionUtils.IsValidStatusAction(serverSideEvent.Action) 
+            if (ActionUtils.IsValidStatusAction(serverSideEvent.Action)
                 || ActionUtils.IsValidPwfaAction(serverSideEvent.Action))
             {
                 serverSideEvent.Status = Status.ADAPTER_ACCEPTED;

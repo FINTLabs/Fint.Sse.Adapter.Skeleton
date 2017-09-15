@@ -10,7 +10,7 @@ namespace Fint.Sse.Adapter.Tests.Services
     public class EventStatusServiceTest
     {
         public EventStatusServiceTest()
-        {            
+        {
             _httpService = new Mock<IHttpService>();
             _logger = new Mock<ILogger<HttpService>>();
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
@@ -29,7 +29,7 @@ namespace Fint.Sse.Adapter.Tests.Services
 
             // Act
             var statusService = new EventStatusService(_logger.Object, _httpService.Object, _appSettingsMock.Object);
-            var evt = statusService.VerifyEvent(new Event<object> { Action = "health" });
+            var evt = statusService.VerifyEvent(new Event<object> {Action = "health"});
 
             // Verify
             Assert.Equal(Status.ADAPTER_ACCEPTED, evt.Status);
@@ -44,7 +44,7 @@ namespace Fint.Sse.Adapter.Tests.Services
 
             // Act
             var statusService = new EventStatusService(_logger.Object, _httpService.Object, _appSettingsMock.Object);
-            var evt = statusService.VerifyEvent(new Event<object> { Action = "SomeUndefinedAction" });
+            var evt = statusService.VerifyEvent(new Event<object> {Action = "SomeUndefinedAction"});
 
             // Verify
             Assert.Equal(Status.ADAPTER_REJECTED, evt.Status);
@@ -52,7 +52,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         }
 
         private readonly Mock<IOptions<AppSettings>> _appSettingsMock;
-        private readonly Mock<IHttpService> _httpService;        
+        private readonly Mock<IHttpService> _httpService;
         private readonly Mock<ILogger<HttpService>> _logger;
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿using Fint.Event.Model;
+﻿using Fint.Event.Model;
 
 namespace Fint.Sse.Adapter.Services
 {

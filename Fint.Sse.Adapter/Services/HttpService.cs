@@ -27,9 +27,7 @@ namespace Fint.Sse.Adapter.Services
 
             if (_tokenService.OAuthEnabled)
             {
-                var task = Task.Run(async () => {
-                    return await _tokenService.GetAccessTokenAsync();
-                });
+                var task = Task.Run(async () => { return await _tokenService.GetAccessTokenAsync(); });
 
                 accessToken = task.Result;
             }
@@ -41,7 +39,7 @@ namespace Fint.Sse.Adapter.Services
             {
                 _httpClient.SetBearerToken(accessToken);
             }
-            
+
             var json = JsonConvert.SerializeObject(serverSideEvent);
             StringContent content = new StringContent(json);
 
@@ -53,14 +51,14 @@ namespace Fint.Sse.Adapter.Services
                 LoggerExtensions.LogInformation(_logger, "JSON endpoint: {endpoint}", endpoint);
                 LoggerExtensions.LogInformation(_logger, "JSON event: {json}", json);
                 var response = await _httpClient.PostAsync(endpoint, content);
-                LoggerExtensions.LogInformation(_logger, "Provider response {reponse}", response.Content.ReadAsStringAsync().Result);
+                LoggerExtensions.LogInformation(_logger, "Provider response {reponse}",
+                    response.Content.ReadAsStringAsync().Result);
             }
             catch (Exception e)
             {
-                LoggerExtensions.LogWarning(_logger, "Could not POST {event} to {endpoint}. Error: {error}", serverSideEvent, endpoint, e.Message);
+                LoggerExtensions.LogWarning(_logger, "Could not POST {event} to {endpoint}. Error: {error}",
+                    serverSideEvent, endpoint, e.Message);
             }
-            
-            
-        }        
+        }
     }
 }
