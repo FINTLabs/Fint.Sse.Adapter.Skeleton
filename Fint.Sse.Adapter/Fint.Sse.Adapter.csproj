@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FINT.Event.Model" Version="1.0.4" />
+    <PackageReference Include="FINT.Event.Model" Version="1.0.5" />
     <PackageReference Include="FINT.Pwfa.Model" Version="1.0.0" />
     <PackageReference Include="FINT.Relation.Model" Version="1.0.2" />
     <PackageReference Include="IdentityModel" Version="2.10.0" />

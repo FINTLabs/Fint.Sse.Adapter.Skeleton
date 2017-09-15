@@ -19,11 +19,11 @@ namespace Fint.Sse.Adapter.Services
             if (ActionUtils.IsValidStatusAction(serverSideEvent.Action) 
                 || ActionUtils.IsValidPwfaAction(serverSideEvent.Action))
             {
-                serverSideEvent.Status = Status.PROVIDER_ACCEPTED;
+                serverSideEvent.Status = Status.ADAPTER_ACCEPTED;
             }
             else
             {
-                serverSideEvent.Status = Status.PROVIDER_REJECTED;
+                serverSideEvent.Status = Status.ADAPTER_REJECTED;
             }
 
             serverSideEvent.Data?.Clear();

@@ -38,7 +38,7 @@ namespace Fint.Sse.Adapter.Services
             }
             else
             {
-                if (_statusService.VerifyEvent(serverSideEvent).Status == Status.PROVIDER_ACCEPTED)
+                if (_statusService.VerifyEvent(serverSideEvent).Status == Status.ADAPTER_ACCEPTED)
                 {
                     var action =(PwfaActions) Enum.Parse(typeof(PwfaActions), serverSideEvent.Action, ignoreCase: true);
                     Event<object> responseEvent = serverSideEvent;
@@ -63,7 +63,7 @@ namespace Fint.Sse.Adapter.Services
                             throw new Exception(message);
                     }
 
-                    responseEvent.Status = Status.PROVIDER_RESPONSE;
+                    responseEvent.Status = Status.ADAPTER_RESPONSE;
                     _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
                 }
             }
