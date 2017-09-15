@@ -1,6 +1,7 @@
 ﻿using Fint.Event.Model;
 using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -12,6 +13,7 @@ namespace Fint.Sse.Adapter.Tests.Services
         {
             _accessToken = "";
             _httpService = new Mock<IHttpService>();
+            _logger = new Mock<ILogger<HttpService>>();
             _appSettingsMock = new Mock<IOptions<AppSettings>>();
             _appSettingsMock.Setup(ap => ap.Value).Returns(new AppSettings
             {
@@ -27,7 +29,7 @@ namespace Fint.Sse.Adapter.Tests.Services
             _httpService.Setup(x => x.Post(It.IsAny<string>(), It.IsAny<Event<object>>()));
 
             // Act
-            var statusService = new EventStatusService(_httpService.Object, _appSettingsMock.Object);
+            var statusService = new EventStatusService(_logger.Object, _httpService.Object, _appSettingsMock.Object);
             var evt = statusService.VerifyEvent(new Event<object> { Action = "health" });
 
             // Verify
@@ -42,7 +44,7 @@ namespace Fint.Sse.Adapter.Tests.Services
             _httpService.Setup(x => x.Post(It.IsAny<string>(), It.IsAny<Event<object>>()));
 
             // Act
-            var statusService = new EventStatusService(_httpService.Object, _appSettingsMock.Object);
+            var statusService = new EventStatusService(_logger.Object, _httpService.Object, _appSettingsMock.Object);
             var evt = statusService.VerifyEvent(new Event<object> { Action = "SomeUndefinedAction" });
 
             // Verify
@@ -53,5 +55,6 @@ namespace Fint.Sse.Adapter.Tests.Services
         private readonly Mock<IOptions<AppSettings>> _appSettingsMock;
         private readonly Mock<IHttpService> _httpService;
         private readonly string _accessToken;
+        private readonly Mock<ILogger<HttpService>> _logger;
     }
 }

@@ -53,7 +53,7 @@ namespace Fint.Sse.Adapter.Services
                 LoggerExtensions.LogInformation(_logger, "JSON endpoint: {endpoint}", endpoint);
                 LoggerExtensions.LogInformation(_logger, "JSON event: {json}", json);
                 var response = await _httpClient.PostAsync(endpoint, content);
-                LoggerExtensions.LogInformation(_logger, "Provider POST response {reponse}", response.Content.ReadAsStringAsync().Result);
+                LoggerExtensions.LogInformation(_logger, "Provider response {reponse}", response.Content.ReadAsStringAsync().Result);
             }
             catch (Exception e)
             {

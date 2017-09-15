@@ -1,5 +1,6 @@
 ﻿using Fint.Event.Model;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 
 namespace Fint.Sse.Adapter.Services
 {
@@ -7,11 +8,13 @@ namespace Fint.Sse.Adapter.Services
     {
         private readonly IHttpService _httpService;
         private readonly AppSettings _appSettings;
+        private readonly ILogger _logger;
 
-        public EventStatusService(IHttpService httpService, IOptions<AppSettings> appSettings)
+        public EventStatusService(ILogger<HttpService> logger, IHttpService httpService, IOptions<AppSettings> appSettings)
         {
             _httpService = httpService;
             _appSettings = appSettings.Value;
+            _logger = logger;
         }
 
         public Event<object> VerifyEvent(Event<object> serverSideEvent)
@@ -35,6 +38,7 @@ namespace Fint.Sse.Adapter.Services
 
         private void PostStatus(Event<object> evt)
         {
+            LoggerExtensions.LogInformation(_logger, "POST Status");
             _httpService.Post(_appSettings.StatusEndpoint, evt);
         }
     }

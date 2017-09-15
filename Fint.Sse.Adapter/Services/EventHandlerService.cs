@@ -64,6 +64,7 @@ namespace Fint.Sse.Adapter.Services
                     }
 
                     responseEvent.Status = Status.ADAPTER_RESPONSE;
+                    LoggerExtensions.LogInformation(_logger, "POST EventResponse");
                     _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
                 }
             }
