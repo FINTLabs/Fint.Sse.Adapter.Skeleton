@@ -1,6 +1,6 @@
 ﻿using System;
-using Fint.Pwfa.Model;
 using Fint.Event.Model;
+using Fint.Pwfa.Model;
 
 namespace Fint.Sse.Adapter
 {
@@ -8,7 +8,7 @@ namespace Fint.Sse.Adapter
     {
         public static bool IsValidPwfaAction(string eventAction)
         {
-            if(Enum.TryParse(eventAction, true, out PwfaActions action))
+            if (Enum.TryParse(eventAction, true, out PwfaActions action))
             {
                 if (Enum.IsDefined(typeof(PwfaActions), action))
                 {
@@ -20,7 +20,7 @@ namespace Fint.Sse.Adapter
 
         public static bool IsValidStatusAction(string eventAction)
         {
-            if(Enum.TryParse(eventAction, true, out DefaultActions action))
+            if (Enum.TryParse(eventAction, true, out DefaultActions action))
             {
                 if (Enum.IsDefined(typeof(DefaultActions), action))
                 {

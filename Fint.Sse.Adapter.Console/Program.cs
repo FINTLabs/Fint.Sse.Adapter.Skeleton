@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using System.Linq;
 using System.Net.Http;
+using Fint.Sse.Adapter.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using Fint.Sse.Adapter.Services;
 
 namespace Fint.Sse.Adapter.Console
 {
@@ -44,18 +43,18 @@ namespace Fint.Sse.Adapter.Console
 
             serviceCollection.AddOptions();
             serviceCollection.Configure<AppSettings>(configuration.GetSection("Configuration"));
-            serviceCollection.Configure<FintSseSettings>(configuration.GetSection("FintSseSettings"));            
+            serviceCollection.Configure<FintSseSettings>(configuration.GetSection("FintSseSettings"));
 
             ConfigureJson();
             ConfigureLogging(configuration);
             ConfigureConsole(configuration);
 
             // add services with config
-            serviceCollection.AddOAuthTokenService(configuration.GetSection("OAuthTokenService"));            
+            serviceCollection.AddOAuthTokenService(configuration.GetSection("OAuthTokenService"));
 
             // add services            
             serviceCollection.AddTransient<ITokenService, TokenService>();
-            serviceCollection.AddTransient<HttpClient>(); 
+            serviceCollection.AddTransient<HttpClient>();
             serviceCollection.AddTransient<EventSource>();
             serviceCollection.AddTransient<IHttpService, HttpService>();
             serviceCollection.AddTransient<IEventStatusService, EventStatusService>();
@@ -73,7 +72,7 @@ namespace Fint.Sse.Adapter.Console
             JsonConvert.DefaultSettings = (() =>
             {
                 var settings = new JsonSerializerSettings();
-                settings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
+                settings.Converters.Add(new StringEnumConverter {CamelCaseText = false});
                 settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 return settings;
             });
@@ -85,7 +84,7 @@ namespace Fint.Sse.Adapter.Console
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.LiterateConsole()
-                .WriteTo.RollingFile(logLocation + "\\adapter-{Date}.txt",
+                .WriteTo.RollingFile(logLocation + Path.DirectorySeparatorChar + "adapter-{Date}.txt",
                     retainedFileCountLimit: 31)
                 .CreateLogger();
         }

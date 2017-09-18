@@ -15,7 +15,7 @@ namespace Fint.Sse.Adapter.Services
         {
             SetupPwfaData();
         }
-        
+
         public void GetAllDogs(Event<object> serverSideEvent)
         {
             var relationOwner1 = new RelationBuilder()
@@ -34,7 +34,6 @@ namespace Fint.Sse.Adapter.Services
 
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
-
         }
 
         public void GetDog(Event<object> serverSideEvent)
@@ -52,7 +51,6 @@ namespace Fint.Sse.Adapter.Services
                 .AddRelasjoner(relation);
 
             serverSideEvent.Data.Add(resource);
-
         }
 
         public void GetAllOwners(Event<object> serverSideEvent)
@@ -73,7 +71,6 @@ namespace Fint.Sse.Adapter.Services
 
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));
-
         }
 
         public void GetOwner(Event<object> serverSideEvent)
@@ -91,9 +88,8 @@ namespace Fint.Sse.Adapter.Services
                 .AddRelasjoner(relation);
 
             serverSideEvent.Data.Add(resource);
-
         }
-        
+
         private void SetupPwfaData()
         {
             _owners = new List<Owner>
@@ -116,6 +112,5 @@ namespace Fint.Sse.Adapter.Services
                 new Dog {Id = "2", Name = "Lady", Breed = "Working Springer Spaniel"}
             };
         }
-
     }
 }
