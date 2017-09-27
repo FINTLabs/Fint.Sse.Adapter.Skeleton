@@ -39,6 +39,7 @@ namespace Fint.Sse.Adapter.Console
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", false)
+                .AddEnvironmentVariables()
                 .Build();
 
             serviceCollection.AddOptions();

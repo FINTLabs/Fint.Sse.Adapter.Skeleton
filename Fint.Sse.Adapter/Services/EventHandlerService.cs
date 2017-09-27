@@ -41,7 +41,7 @@ namespace Fint.Sse.Adapter.Services
                 {
                     var action =
                         (PwfaActions) Enum.Parse(typeof(PwfaActions), serverSideEvent.Action, ignoreCase: true);
-                    Event<object> responseEvent = serverSideEvent;
+                    var responseEvent = serverSideEvent;
 
                     switch (action)
                     {
@@ -64,7 +64,7 @@ namespace Fint.Sse.Adapter.Services
                     }
 
                     responseEvent.Status = Status.ADAPTER_RESPONSE;
-                    LoggerExtensions.LogInformation(_logger, "POST EventResponse");
+                    _logger.LogInformation("POST EventResponse");
                     _httpService.Post(_appSettings.ResponseEndpoint, responseEvent);
                 }
             }

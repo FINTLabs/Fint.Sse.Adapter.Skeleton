@@ -30,7 +30,7 @@ namespace Fint.Sse.Adapter.Services
                 .Value("20")
                 .Build();
 
-            var dogs = Enumerable.ToList<Dog>(_dogs);
+            var dogs = _dogs.ToList();
 
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
             serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
@@ -38,7 +38,7 @@ namespace Fint.Sse.Adapter.Services
 
         public void GetDog(Event<object> serverSideEvent)
         {
-            var dog = Enumerable.FirstOrDefault<Dog>(_dogs, d => d.Id.Equals(serverSideEvent.Query));
+            var dog = _dogs.FirstOrDefault(d => d.Id.Equals(serverSideEvent.Query));
 
             var relation = new RelationBuilder()
                 .With(Dog.Relasjonsnavn.OWNER)
@@ -67,7 +67,7 @@ namespace Fint.Sse.Adapter.Services
                 .Value("2")
                 .Build();
 
-            var owners = Enumerable.ToList<Owner>(_owners);
+            var owners = _owners.ToList();
 
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
             serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));
@@ -75,7 +75,7 @@ namespace Fint.Sse.Adapter.Services
 
         public void GetOwner(Event<object> serverSideEvent)
         {
-            var owner = Enumerable.FirstOrDefault<Owner>(_owners, o => o.Id.Equals(serverSideEvent.Query));
+            var owner = _owners.FirstOrDefault(o => o.Id.Equals(serverSideEvent.Query));
 
             var relation = new RelationBuilder()
                 .With(Owner.Relasjonsnavn.DOG)

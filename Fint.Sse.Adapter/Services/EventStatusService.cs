@@ -39,7 +39,7 @@ namespace Fint.Sse.Adapter.Services
 
         private void PostStatus(Event<object> evt)
         {
-            LoggerExtensions.LogInformation(_logger, "POST Status");
+            _logger.LogInformation("POST Status");
             _httpService.Post(_appSettings.StatusEndpoint, evt);
         }
     }

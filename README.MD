@@ -90,3 +90,6 @@ public Event<object> VerifyEvent(Event<object> serverSideEvent)
 | fint.adapter.sse-endpoint | Url to the sse endpoint. | https://play-with-fint-adapter.felleskomponent.no/provider/sse/%s |
 | fint.adapter.status-endpoint | Url to the status endpoint. | https://play-with-fint-adapter.felleskomponent.no//provider/status |
 | fint.adapter.response-endpoint | Url to the response endpoint. | https://play-with-fint-adapter.felleskomponent.no/provider/response |
+
+## Links
+[App settings as environment varibles](https://www.scottbrady91.com/Docker/ASPNET-Core-and-Docker-Environment-Variables)
