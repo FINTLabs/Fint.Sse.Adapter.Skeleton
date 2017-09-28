@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
@@ -7,9 +8,10 @@ namespace Fint.Sse.Adapter.Console
     public class SseApplication : IApplication
     {
         private readonly IFintEventListener _listener;
-        private FintSseSettings _fintSseSettings;
+        private readonly FintSseSettings _fintSseSettings;
         private readonly ILogger<SseApplication> _logger;
-        public FintSseApplication _app { get; set; }
+        private FintSseApplication _app { get; set; }
+        private static readonly AutoResetEvent _closing = new AutoResetEvent(false);
 
         public SseApplication(
             IFintEventListener listener,
@@ -29,19 +31,8 @@ namespace Fint.Sse.Adapter.Console
                 _app = new FintSseApplication(_listener, new OptionsWrapper<FintSseSettings>(_fintSseSettings));
                 RegisterEventSourceListeners();
 
-                ConsoleKey key;
-                while ((key = System.Console.ReadKey().Key) != ConsoleKey.X)
-                {
-                    switch (key)
-                    {
-                        case ConsoleKey.C:
-                            CancelEventSourceListeners();
-                            break;
-                        case ConsoleKey.R:
-                            RegisterEventSourceListeners();
-                            break;
-                    }
-                }
+                System.Console.CancelKeyPress += OnExit;
+                _closing.WaitOne();
             }
             catch (Exception e)
             {
@@ -73,6 +64,11 @@ namespace Fint.Sse.Adapter.Console
                     RegisterEventSourceListeners();
                 }
             }
+        }
+
+        private void OnExit(object sender, ConsoleCancelEventArgs args)
+        {
+            CancelEventSourceListeners();
         }
 
         private void DisplayLogo()
