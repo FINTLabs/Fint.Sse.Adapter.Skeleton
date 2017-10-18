@@ -32,8 +32,8 @@ namespace Fint.Sse.Adapter.Services
 
             var dogs = _dogs.ToList();
 
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelasjoner(relationOwner1));
-            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelasjoner(relationOwner2));
+            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[0]).AddRelations(relationOwner1));
+            serverSideEvent.Data.Add(FintResource<Dog>.With(dogs[1]).AddRelations(relationOwner2));
         }
 
         public void GetDog(Event<object> serverSideEvent)
@@ -48,7 +48,7 @@ namespace Fint.Sse.Adapter.Services
 
             var resource = FintResource<Dog>
                 .With(dog)
-                .AddRelasjoner(relation);
+                .AddRelations(relation);
 
             serverSideEvent.Data.Add(resource);
         }
@@ -69,8 +69,8 @@ namespace Fint.Sse.Adapter.Services
 
             var owners = _owners.ToList();
 
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelasjoner(relationDog1));
-            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelasjoner(relationDog2));
+            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[0]).AddRelations(relationDog1));
+            serverSideEvent.Data.Add(FintResource<Owner>.With(owners[1]).AddRelations(relationDog2));
         }
 
         public void GetOwner(Event<object> serverSideEvent)
@@ -85,7 +85,7 @@ namespace Fint.Sse.Adapter.Services
 
             var resource = FintResource<Owner>
                 .With(owner)
-                .AddRelasjoner(relation);
+                .AddRelations(relation);
 
             serverSideEvent.Data.Add(resource);
         }
