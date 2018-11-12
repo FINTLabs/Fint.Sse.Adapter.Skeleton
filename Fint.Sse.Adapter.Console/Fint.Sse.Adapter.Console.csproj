@@ -21,4 +21,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Fint.Sse.Adapter\Fint.Sse.Adapter.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
