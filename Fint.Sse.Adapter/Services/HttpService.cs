@@ -19,6 +19,9 @@ namespace Fint.Sse.Adapter.Services
             _logger = logger;
             _httpClient = httpClient;
             _tokenService = tokenService;
+
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            _httpClient.DefaultRequestHeaders.Accept.Add(contentType);
         }
 
         public async void Post(string endpoint, Event<object> serverSideEvent)
@@ -32,8 +35,6 @@ namespace Fint.Sse.Adapter.Services
                 accessToken = task.Result;
             }
 
-            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
-            _httpClient.DefaultRequestHeaders.Accept.Add(contentType);
 
             if (_tokenService.OAuthEnabled)
             {
@@ -42,17 +43,17 @@ namespace Fint.Sse.Adapter.Services
 
             var json = JsonConvert.SerializeObject(serverSideEvent);
             var content = new StringContent(json);
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
 
             content.Headers.Add(FintHeaders.ORG_ID_HEADER, serverSideEvent.OrgId);
             content.Headers.ContentType = contentType;
 
             try
             {
-                _logger.LogDebug("JSON endpoint: {endpoint}", endpoint);
-                _logger.LogDebug("JSON event: {json}", json);
+                _logger.LogTrace("JSON event: {json}", json);
                 var response = await _httpClient.PostAsync(endpoint, content);
-                _logger.LogInformation("Provider response {reponse}",
-                    response.StatusCode);
+                _logger.LogDebug("Provider {endpoint}: {reponse}",
+                    endpoint, response.StatusCode);
             }
             catch (Exception e)
             {
